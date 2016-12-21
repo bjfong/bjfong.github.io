@@ -906,54 +906,54 @@ $.magnificPopup = {
 
 
 
-$.fn.magnificPopup = function(options) {
-	_checkInstance();
+// $.fn.magnificPopup = function(options) {
+// 	_checkInstance();
 
-	var jqEl = $(this);
+// 	var jqEl = $(this);
 
-	// We call some API method of first param is a string
-	if (typeof options === "string" ) {
+// 	// We call some API method of first param is a string
+// 	if (typeof options === "string" ) {
 
-		if(options === 'open') {
-			var items,
-				itemOpts = _isJQ ? jqEl.data('magnificPopup') : jqEl[0].magnificPopup,
-				index = parseInt(arguments[1], 10) || 0;
+// 		if(options === 'open') {
+// 			var items,
+// 				itemOpts = _isJQ ? jqEl.data('magnificPopup') : jqEl[0].magnificPopup,
+// 				index = parseInt(arguments[1], 10) || 0;
 
-			if(itemOpts.items) {
-				items = itemOpts.items[index];
-			} else {
-				items = jqEl;
-				if(itemOpts.delegate) {
-					items = items.find(itemOpts.delegate);
-				}
-				items = items.eq( index );
-			}
-			mfp._openClick({mfpEl:items}, jqEl, itemOpts);
-		} else {
-			if(mfp.isOpen)
-				mfp[options].apply(mfp, Array.prototype.slice.call(arguments, 1));
-		}
+// 			if(itemOpts.items) {
+// 				items = itemOpts.items[index];
+// 			} else {
+// 				items = jqEl;
+// 				if(itemOpts.delegate) {
+// 					items = items.find(itemOpts.delegate);
+// 				}
+// 				items = items.eq( index );
+// 			}
+// 			mfp._openClick({mfpEl:items}, jqEl, itemOpts);
+// 		} else {
+// 			if(mfp.isOpen)
+// 				mfp[options].apply(mfp, Array.prototype.slice.call(arguments, 1));
+// 		}
 
-	} else {
-		// clone options obj
-		options = $.extend(true, {}, options);
+// 	} else {
+// 		// clone options obj
+// 		options = $.extend(true, {}, options);
 
-		/*
-		 * As Zepto doesn't support .data() method for objects
-		 * and it works only in normal browsers
-		 * we assign "options" object directly to the DOM element. FTW!
-		 */
-		if(_isJQ) {
-			jqEl.data('magnificPopup', options);
-		} else {
-			jqEl[0].magnificPopup = options;
-		}
+// 		/*
+// 		 * As Zepto doesn't support .data() method for objects
+// 		 * and it works only in normal browsers
+// 		 * we assign "options" object directly to the DOM element. FTW!
+// 		 */
+// 		if(_isJQ) {
+// 			jqEl.data('magnificPopup', options);
+// 		} else {
+// 			jqEl[0].magnificPopup = options;
+// 		}
 
-		mfp.addGroup(jqEl, options);
+// 		mfp.addGroup(jqEl, options);
 
-	}
-	return jqEl;
-};
+// 	}
+// 	return jqEl;
+// };
 
 /*>>core*/
 
