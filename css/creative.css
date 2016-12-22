@@ -415,3 +415,7 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #222222;
 }
+
+span#disclaimer:hover {
+  opacity: 0.5;
+}
