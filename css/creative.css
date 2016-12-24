@@ -416,6 +416,23 @@ body {
   webkit-tap-highlight-color: #222222;
 }
 
+/* my adds */
 span#disclaimer:hover {
   opacity: 0.5;
+}
+
+.carousel-inner .item .rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    background: 50% 50% no-repeat; /* 50% 50% centers image in div */
+    width: 500px;
+    height: 500px;
+}
+
+.carousel-inner .item .resize {
+  width:500px;
+  height:500px;
 }
