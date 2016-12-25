@@ -1,6 +1,6 @@
 var view = {
 	begin: "begin",
-	begin_header: "How It All Began",
+	begin_header: "CHANGE HERE",
 
 	trip: "thetrip",
 	trip_header: "The Trip",
