@@ -10,7 +10,7 @@ var view = {
 	pictures_header: "Pictures",
 
 	highlights: "highlights",
-	highlights_header: "The Good Times",
+	highlights_header: "The Highlights",
 
 	likes: "likes",
 	likes_header: "What I Liked",
@@ -56,7 +56,6 @@ var template_index =
 
 
 // setInterval(function() {
-	// $('#bs-example-navbar-collapse-1').html(Mustache.render(,));
 	$("#bs-example-navbar-collapse-1").html(Mustache.render(template, view));
 	$("#bs-example-navbar-collapse-1-index").html(Mustache.render(template_index, view_index));
 // }, 1000);
