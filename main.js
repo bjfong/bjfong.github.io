@@ -55,8 +55,8 @@ var template_index =
 "<li><a class=\"page-scroll\" href=\"#{{contact}}\">{{contact_header}}</a></li></ul>";
 
 
-setInterval(function() {
+// setInterval(function() {
 	// $('#bs-example-navbar-collapse-1').html(Mustache.render(,));
 	$("#bs-example-navbar-collapse-1").html(Mustache.render(template, view));
 	$("#bs-example-navbar-collapse-1-index").html(Mustache.render(template_index, view_index));
-}, 1000);
+// }, 1000);

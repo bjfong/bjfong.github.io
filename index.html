@@ -83,7 +83,7 @@
                     <hr class="light">
                     <p class="text-faded">My name is Brian. I was born and raised in the Bay Area, graduated from the University of California, San Diego in 2016 with a B.S. in Computer Science, and now I am currently working as a software engineer in Los Angeles. I am a huge sports fan (<span style="color:yellow">Go Lakers!</span>), I love food, and I watch <u>a lot</u> of TV shows.<br><br>
 
-                    I haven't gotten the chance to travel in my life so far. I didn't go on summer trips or any study abroad programs, so I don't have many memories and adventures overseas or even in other parts of the USA. Now that I am making (enough) money, I'm taking advantage of this great time in my life to see what the world has to offer. This page has all the information about my travels (big or small, domestic and international) or even just outings with friends or coworkers, so check out where I've been and join me on this adventure!</p>
+                    I haven't gotten the chance to travel in my life so far. I didn't go on summer trips or any study abroad programs, so I don't have many memories and adventures overseas or even in other parts of the USA. Now that I am making (enough) money, I'm taking advantage of this great time in my life to see what the world has to offer. This page has all the information about my travels: big or small, domestic or international, day trips or week-long adventures. Check out where I've been and join me on this adventure!</p>
                     <a href="#adventures" class="page-scroll btn btn-default btn-xl sr-button">My Adventures</a>
                 </div>
             </div>
@@ -96,6 +96,9 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">My Adventures</h2>
                     <hr class="dark">
+                    <button class="btn btn-info" type="button" id="all_filter">All</button>
+                    <button class="btn btn-info" type="button" id="domestic_filter">Domestic</button>
+                    <button class="btn btn-info" type="button" id="international_filter">International</button>
                 </div>
             </div>
         </div>
@@ -103,7 +106,7 @@
     <section class="no-padding">
         <div class="container-fluid">
             <div class="row no-gutter popup-gallery">
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 domestic">
                     <a href="comingsoon.html" class="portfolio-box">
                         <img src="img/snowvalley/snowvalley_front.jpg" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
@@ -119,7 +122,7 @@
                     </a>
                 </div>
 
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 domestic">
                     <a href="trips/magiq.html" class="portfolio-box">
                         <img src="img/magiq/magiq_front.jpg" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
@@ -135,7 +138,7 @@
                     </a>
                 </div>
 
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 international">
                     <a href="trips/tokyo.html" class="portfolio-box">
                         <img src="img/tokyo/tokyo_front.jpg" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
@@ -150,7 +153,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 domestic">
                     <a href="trips/sandiego.html" class="portfolio-box">
                         <img src="img/sandiego/sandiego_front.jpg" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
@@ -245,6 +248,7 @@
 
     <script src="js/mustache.js"></script>
     <script src="main.js"></script>
+    <script src="js/filter.js"></script>
 </body>
 
 </html>
