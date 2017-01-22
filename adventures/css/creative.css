@@ -416,11 +416,14 @@ body {
   webkit-tap-highlight-color: #222222;
 }
 
-/* my adds */
+
+/* ------------ MY ADDS ------------ */
+
+/* for disclaimer at bottom of the page */
 span#disclaimer:hover {
   opacity: 0.5;
 }
-
+/* for rotating pictures that are landscape */
 .carousel-inner .item .rotate90 {
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
@@ -431,8 +434,13 @@ span#disclaimer:hover {
     width: 500px;
     height: 500px;
 }
-
+/* resizing pictures that are too big for slideshow */
 .carousel-inner .item .resize {
   width:500px;
   height:500px;
+}
+/* for Google Maps */
+#map {
+  height: 400px;
+  width: 100%;
 }
