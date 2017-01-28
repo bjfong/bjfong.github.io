@@ -423,8 +423,8 @@ body {
 span#disclaimer:hover {
   opacity: 0.5;
 }
-header background-image .opaque100{
-  opacity: 1;
+h1 {
+  color: black;
 }
 
 /* for rotating pictures that are landscape */
@@ -437,14 +437,4 @@ header background-image .opaque100{
     background: 50% 50% no-repeat; /* 50% 50% centers image in div */
     width: 500px;
     height: 500px;
-}
-/* resizing pictures that are too big for slideshow */
-.carousel-inner .item .resize {
-  width:500px;
-  height:500px;
-}
-/* for Google Maps */
-#map {
-  height: 400px;
-  width: 100%;
 }
