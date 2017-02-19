@@ -423,24 +423,3 @@ body {
 span#disclaimer:hover {
   opacity: 0.5;
 }
-/* for rotating pictures that are landscape */
-.carousel-inner .item .rotate90 {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-    background: 50% 50% no-repeat; /* 50% 50% centers image in div */
-    width: 500px;
-    height: 500px;
-}
-/* resizing pictures that are too big for slideshow */
-.carousel-inner .item .resize {
-  width:500px;
-  height:500px;
-}
-/* for Google Maps */
-#map {
-  height: 400px;
-  width: 100%;
-}

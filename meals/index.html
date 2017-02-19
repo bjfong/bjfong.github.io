@@ -80,7 +80,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <img src="img/me.png" style="border-radius:250px;"/><br><br>
-                    <h2 class="section-heading">Software engineer. Food lover. Sports fanatic. <br>TV show binger. Amateur traveler/adventure seeker.</h2>
+                    <h2 class="section-heading">Software engineer. Food lover/Yelp Elite. Sports fanatic. TV show binger. Amateur adventure seeker.</h2>
                     <hr class="light">
                     <p class="text-faded">My name is Brian. I was born and raised in the Bay Area, graduated from the University of California, San Diego in 2016 with a B.S. in Computer Science, and now I am currently working as a software engineer in Los Angeles. I am a huge sports fan (<span style="color:yellow">Go Lakers!</span>), I love food, and I watch <u>a lot</u> of TV shows.<br><br>
 
@@ -94,130 +94,71 @@
         </div>
     </section>
 
-    <aside  id="meals">
+    <aside id="meals">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">My Meals</h2>
                     <hr class="dark">
-<!--                     <button class="btn btn-info" type="button" id="all_filter">All</button>
-                    <button class="btn btn-info" type="button" id="domestic_filter">Domestic</button>
-                    <button class="btn btn-info" type="button" id="international_filter">International</button> -->
+
+                    <div id="form">
+                        Location
+                        <select id="location">
+                            <option value="all" selected>All</option>
+                            <option value="bay">Bay Area</option>
+                            <option value="japan">Japan</option>
+                            <option value="la">Los Angeles</option>
+                            <option value="oc">Orange County</option>
+                            <option value="sandiego">San Diego</option>
+                        </select>
+
+                        Cuisine
+                        <select id="cuisine">
+                            <option value="all" selected>All</option>
+                            <option value="american">American</option>
+                            <option value="chinese">Chinese</option>
+                            <option value="japanese">Japanese</option>
+                            <option value="mexican">Mexican</option>
+                            <option value="vietnamese">Vietnamese</option>
+                        </select>
+                        
+                        <button value="submit" id="form_submit">Filter</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </aside>
-    <section class="no-padding">
-        <div class="container-fluid">
-            <div class="row no-gutter popup-gallery">
+            <br><br>
+            <div class="row" id="results">
+                <center id="noresults"></center>
 
-                <div class="col-lg-12 domestic">
-                    <a href="comingsoon.html" class="portfolio-box">
-                        <img src="img/sanantonio/sanantonio_front.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-name">
-                                    SAN ANTONIO, TEXAS
-                                </div>
-                                <div class="project-category text-faded">
-                                    MARCH 2017
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-md-4 la mexican">
+                    <a href="trips/snowvalley.html" class="portfolio-box">
+                        <img src="img/magiq/magiq_front.jpg" class="img-responsive" alt="">
                     </a>
                 </div>
 
-                <div class="col-lg-6 col-sm-6 domestic">
+                <div class="col-md-4 la japanese">
+                    <a href="trips/snowvalley.html" class="portfolio-box">
+                        <img src="img/magiq/magiq_front.jpg" class="img-responsive" alt="">
+                    </a>
+                </div>
+
+                <div class="col-md-4 bay japanese">
                     <a href="trips/snowvalley.html" class="portfolio-box">
                         <img src="img/snowvalley/snowvalley_front.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-name">
-                                    SNOW VALLEY, CALIFORNIA
-                                </div>
-                                <div class="project-category text-faded">
-                                    JANUARY 2017
-                                </div>
-                            </div>
-                        </div>
                     </a>
                 </div>
 
-                <div class="col-lg-6 col-sm-6 domestic">
-                    <a href="trips/magiq.html" class="portfolio-box">
-                        <img src="img/magiq/magiq_front.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-name">
-                                    MAGIQ ESCAPE ROOM, LOS ANGELES
-                                </div>
-                                <div class="project-category text-faded">
-                                    DECEMBER 2016
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-md-4 la mexican">
+                    <a href="trips/snowvalley.html" class="portfolio-box">
+                        <img src="img/snowvalley/snowvalley_front.jpg" class="img-responsive" alt="">
                     </a>
                 </div>
 
-                <div class="col-lg-6 col-sm-6 domestic">
-                    <!-- <a href="trips/ocsd.html" class="portfolio-box"> -->
-                    <a href="incomplete.html" class="portfolio-box">
-                        <img src="img/ocsd/ocsd_front.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-name">
-                                    ORANGE COUNTY+SAN DIEGO, CALIFORNIA
-                                </div>
-                                <div class="project-category text-faded">
-                                    DECEMBER 2016 - JANUARY 2017
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-lg-6 col-sm-6 international">
-                    <a href="trips/tokyo.html" class="portfolio-box">
-                        <img src="img/tokyo/tokyo_front.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-name">
-                                    TOKYO, JAPAN
-                                </div>
-                                <div class="project-category text-faded">
-                                    DECEMBER 2016
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-<!--                 <div class="col-lg-6 col-sm-6 domestic">
-                    <a href="trips/sandiego.html" class="portfolio-box">
-                        <img src="img/sandiego/sandiego_front.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-name">
-                                    SAN DIEGO, CALIFORNIA
-                                </div>
-                                <div class="project-category text-faded">
-                                    JUNE 2014 - SEPTEMBER 2014
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div> -->
             </div>
-        </div>
-    </section>
 
-<!--     <aside class="bg-dark">
-        <div class="container text-center">
-            <div class="call-to-action">
-                <h2>Free Download at Start Bootstrap!</h2>
-                <a href="http://startbootstrap.com/template-overviews/creative/" class="btn btn-default btn-xl sr-button">Download Now!</a>
-            </div>
         </div>
-    </aside> -->
+    </aside>
+
 
     <section id="contact">
         <div class="container">
@@ -271,8 +212,9 @@
     <!-- <script src="js/creative.min.js"></script> -->
     <script src="js/creative.js"></script>
     <script src="js/mustache.js"></script>
-    <!-- <script src="main.js"></script> -->
-    <script src="js/filter.js"></script>
+    <script src="js/form_submit.js"></script>
+    <script src="js/jquery.easyPaginate.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

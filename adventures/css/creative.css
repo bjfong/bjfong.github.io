@@ -434,6 +434,17 @@ span#disclaimer:hover {
     width: 500px;
     height: 500px;
 }
+/* for rotating pictures that are upside down (180) */
+.carousel-inner .item .rotate180 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+    /*background: 50% 50% no-repeat;  50% 50% centers image in div */
+    /*width: 500px;*/
+    /*height: 500px;*/
+}
 /* resizing pictures that are too big for slideshow */
 .carousel-inner .item .resize {
   width:500px;
