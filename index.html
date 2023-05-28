@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Liver Mass Calculator</title>
-    <h1>Liver Mass Calculator</h1>
+    <title>Radiology Algorithms</title>
+    <h1>Radiology Algorithms</h1>
     <style>
+      h1{
+        font-family: Arial;
+      }
       .accordion {
         background-color: #eee;
         color: #444;
@@ -31,11 +34,368 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-      <button class="accordion">Section 1</button>
+      <button class="accordion">Liver Mass Algorithm</button>
       <div class="panel">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <script>
+var dict = {};
+
+function getText(selection) {
+	var textDict = {
+	  "lessThan1_low": "Benign, no further follow-up",
+	  "lessThan1_high": "Follow-up MRI in 3-6 months",
+	  "1to1point5_benign": "Benign, no further follow-up",
+	  "1to1point5_suspicious": "Hepatic MRI now",
+	  "1to1point5_flashFilling_low": "Benign, no further follow-up (1 to 1.5)",
+	  "1to1point5_flashFilling_high": "Hepatic MRI now (1 to 1.5)",
+	  "greaterThan1point5_benign": "Benign, no further follow-up (greater than 1.5)",
+	  "greaterThan1point5_suspiciousOrFlashFilling_low": "Hepatic MRI now (greater than 1.5)",
+	  "greaterThan1point5_suspiciousOrFlashFilling_high": "Hepatic MRI now or biopsy",
+  }
+	return textDict[selection] === undefined? "" : textDict[selection];
+}
+
+function showRiskLevelLessThan1(show) {
+	document.getElementById("riskLevelLessThan1Div").style.display = show ? 'block' : 'none';
+}
+
+function showImagingFeatures1to1point5(show) {
+	document.getElementById("imagingFeatures1to1point5Div").style.display = show ? 'block' : 'none';
+}
+function showRiskLevel1to1point5(show) {
+	document.getElementById("riskLevel1to1point5Div").style.display = show ? 'block' : 'none';
+}
+function showImagingFeaturesGreaterThan1point5(show) {
+	document.getElementById("imagingFeaturesGreaterThan1point5Div").style.display = show ? 'block' : 'none';
+}
+function showRiskLevelGreaterThan1point5(show) {
+	document.getElementById("riskLevelGreaterThan1point5Div").style.display = show ? 'block' : 'none';
+}
+function isVisible(elementId) {
+  return document.getElementById(`${elementId}`).style.display === "" || 
+    document.getElementById(`${elementId}`).style.display === "block";
+}
+function isSelected(elementId) {
+  return document.getElementById(`${elementId}`).checked;
+}
+
+function getAllVisibleInputs() {
+  var elements = document.getElementsByClassName("divContainer");
+  var elementsArray = [...elements];
+  var visibleInputs = elementsArray.filter(e => e.style.display === "" || e.style.display === "block");
+  
+  var values = [];
+  for (var i = 0; i < visibleInputs.length; i++) {
+    var radioButtons = visibleInputs[i].getElementsByClassName("radioButton");
+      for (var j = 0; j < radioButtons.length; j++) {
+      if (radioButtons[j].checked) {
+        values.push(radioButtons[j].value);
+      }
+    }
+  }
+  
+  return values.join("_");   
+}
+
+function check(val, name) {
+	dict[name] = val;
+    
+  if (name === "liverMassSize" && val === "lessThan1") {
+    showRiskLevelLessThan1(true);
+    showImagingFeatures1to1point5(false);
+    showRiskLevel1to1point5(false);
+    showRiskLevelGreaterThan1point5(false);
+    showImagingFeaturesGreaterThan1point5(false);
+  }
+  
+  if (name === "liverMassSize" && val === "1to1point5") {
+  	showImagingFeatures1to1point5(true);
+  	showRiskLevelLessThan1(false);
+  	
+  	showRiskLevelGreaterThan1point5(false);
+  	showImagingFeaturesGreaterThan1point5(false);
+  	
+  	// if flash filling is selected, show. otherwise, hide
+  	var showRiskLevel1to1point5Group = isVisible("imagingFeatures1to1point5Div") && isSelected("imagingFeatures-1to1point5-flashFilling");
+  	showRiskLevel1to1point5(showRiskLevel1to1point5Group);
+  }
+  
+  if (name === "liverMassSize" && val === "greaterThan1point5") {
+  	showImagingFeaturesGreaterThan1point5(true);
+  	showImagingFeatures1to1point5(false);
+  	showRiskLevelLessThan1(false);
+  	showRiskLevel1to1point5(false);
+  	
+  	// if sus OR flash filling is selected, show. otherwise, hide
+  	var showRiskLevelGreaterThan1point5Group = isVisible("imagingFeaturesGreaterThan1point5Div") && isSelected("imagingFeatures-greaterThan1point5-suspiciousOrFlashFilling");
+  	//debug(showRiskLevelGreaterThan1point5Group);
+  	showRiskLevelGreaterThan1point5(showRiskLevelGreaterThan1point5Group);
+  }
+  
+  if (name === "imagingFeatures-1to1point5" && val !== "flashFilling") {
+    showRiskLevel1to1point5(false);
+    showRiskLevelGreaterThan1point5(false);
+    showImagingFeaturesGreaterThan1point5(false);
+  }
+  
+  if (name === "imagingFeatures-1to1point5" && val === "flashFilling") {
+    showRiskLevel1to1point5(true);
+    showRiskLevelGreaterThan1point5(false);
+    showImagingFeaturesGreaterThan1point5(false);
+  }
+  
+  if (name === "imagingFeatures-greaterThan1point5" && val === "benign") {
+    showRiskLevelGreaterThan1point5(false);
+  }
+  
+  if (name === "imagingFeatures-greaterThan1point5" && val === "suspiciousOrFlashFilling") {
+    showRiskLevelGreaterThan1point5(true);
+  }
+  
+  var result = getAllVisibleInputs();
+  //debug(result);
+  var textToDisplay = getText(result);
+// 	document.getElementById("answer").innerHTML=textToDisplay;
+	document.getElementById("answer").value=textToDisplay;
+	
+	showCopyTextButton(textToDisplay !== "")
+}
+
+function showCopyTextButton(show) {
+  document.getElementById("copyTextId").style.display = show ? "block": "none";
+  
+  var element = document.getElementById("answer");
+  if (show) {
+    element.classList.remove("answerWithNoBorder");
+    element.classList.add("answerWithBorder");
+  }
+  else {
+    element.classList.remove("answerWithBorder");
+    element.classList.add("answerWithNoBorder");
+  }
+}
+
+function debug(text) {
+	document.getElementById("debug").innerHTML=text;
+}
+
+function clearInputs() {
+	var elements = document.getElementsByClassName("radioButton");
+	var elementsArray = [...elements];
+	for (var i = 0; i < elementsArray.length; i++) {
+	  elementsArray[i].checked = false;
+	}
+// 	document.getElementById("answer").innerHTML="";
+	document.getElementById("answer").value="";
+	showCopyTextButton(false);
+	
+	showImagingFeatures1to1point5(false);
+  	showRiskLevelLessThan1(false);
+  	showRiskLevel1to1point5(false);
+  	showRiskLevelGreaterThan1point5(false);
+  	showImagingFeaturesGreaterThan1point5(false);	
+}
+
+function copyText() {
+  var copyText = document.getElementById("answer");
+  //debug(copyText.text);
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(copyText.value);
+  
+  var tooltip = document.getElementById("myTooltip");
+  tooltip.innerHTML = "Text copied";
+}
+
+function outFunc() {
+  var tooltip = document.getElementById("myTooltip");
+  tooltip.innerHTML = "";
+}
+</script>
+
+<style>
+
+.liverMassCalc {
+  list-style-type: none;
+  margin: 25px 0 0 0;
+  padding: 0;
+}
+
+* {
+ font-family: Arial;
+}
+
+.liverMassCalc label {
+  padding: 5px;
+  cursor: pointer;
+  -webkit-appearance: button;
+  /* WebKit */
+  -moz-appearance: button;
+  /* Mozilla */
+  -o-appearance: button;
+  /* Opera */
+  -ms-appearance: button;
+  /* Internet Explorer */
+  appearance: button;
+  /* CSS3 */
+}
+
+input[type="radio"] {
+  display: none;
+}      
+
+input:checked + label {
+    background:lightblue;
+}
+
+.divContainer label {
+  display: inline-block;
+  background-color: #ffffff;
+  padding: 4px 11px;
+  font-family: Arial;
+  font-size: 14px;
+  cursor: pointer;
+  border-style: solid;
+}      
+
+span {
+  font-size: 14px;
+}
+
+label:hover {
+  color: #AAAAAA;
+}
+
+.answerWithBorder {
+  
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: 1px gray;
+  border-left: 6px solid black;
+  outline: none;
+}
+
+::selection {
+  background: lightblue;
+}
+
+.answerWithNoBorder {
+ border: none;
+ outline: none;
+}
+
+#answer {
+  /*border: none;*/
+  font-size: 16px;
+  /*outline: none;*/
+}
+
+.button {
+  background-color: #e7e7e7;
+  color: black;
+  border: none;
+  padding: 3px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+
+<ul class="liverMassCalc">
+  <div id="liverMassSizeDiv" class="divContainer">
+    <span>Liver Mass Size</span>
+    <li>
+      <input id="liverMassSize-lessThan1" type="radio" name="liverMassSize" onclick="check(this.value, this.name)" value="lessThan1" class="radioButton">
+      <label for="liverMassSize-lessThan1"><1 cm</label>
+      <input id="liverMassSize-1to1point5" type="radio" name="liverMassSize" onclick="check(this.value, this.name)" value="1to1point5" class="radioButton">
+      <label for="liverMassSize-1to1point5">1.0-1.5 cm</label>  
+      <input id="liverMassSize-greaterThan1point5" type="radio" name="liverMassSize" onclick="check(this.value, this.name)" value="greaterThan1point5" class="radioButton">
+      <label for="liverMassSize-greaterThan1point5">>1.5 cm</label>  
+    </li>
+    <br>
+  </div>
+  
+  <div id="riskLevelLessThan1Div" class="divContainer" style="display:none">
+    <span>Risk Level</span>
+    <li>
+      <input id="riskLevel-lessThan1-low" type="radio" name="riskLevel-lessThan1" onclick="check(this.value, this.name)" value="low" class="radioButton">
+      <label for="riskLevel-lessThan1-low">Low</label>
+      <input id="riskLevel-lessThan1-high" type="radio" name="riskLevel-lessThan1" onclick="check(this.value, this.name)" value="high" class="radioButton">
+      <label for="riskLevel-lessThan1-high">High</label>
+    </li>
+    <br>
+  </div>
+  
+  <div id="imagingFeatures1to1point5Div" class="divContainer" style="display:none">
+    <span>Imaging Features</span>
+    <li>
+      <input id="imagingFeatures-1to1point5-benign" type="radio" name="imagingFeatures-1to1point5" onclick="check(this.value, this.name)" value="benign" class="radioButton">
+      <label for="imagingFeatures-1to1point5-benign">Benign Imaging Features</label>
+      <input id="imagingFeatures-1to1point5-suspicious" type="radio" name="imagingFeatures-1to1point5" onclick="check(this.value, this.name)" value="suspicious" class="radioButton">
+      <label for="imagingFeatures-1to1point5-suspicious">Suspicious Imaging Features</label>
+      <input id="imagingFeatures-1to1point5-flashFilling" type="radio" name="imagingFeatures-1to1point5" onclick="check(this.value, this.name)" value="flashFilling" class="radioButton">
+      <label for="imagingFeatures-1to1point5-flashFilling">"Flash-filling" Imaging Feature</label>
+    </li>
+    <br>
+  </div>
+  
+  <div id="riskLevel1to1point5Div" class="divContainer" style="display:none">
+    <span>Risk Level</span>
+    <li>
+      <input id="riskLevel-1to1point5-low" type="radio" name="riskLevel-1to1point5" onclick="check(this.value, this.name)" value="low" class="radioButton">
+      <label for="riskLevel-1to1point5-low">Low</label>
+      <input id="riskLevel-1to1point5-high" type="radio" name="riskLevel-1to1point5" onclick="check(this.value, this.name)" value="high" class="radioButton">
+      <label for="riskLevel-1to1point5-high">High</label>
+    </li>
+    <br>
+  </div>
+  
+  <div id="imagingFeaturesGreaterThan1point5Div" class="divContainer" style="display:none">
+    <span>Imaging Features</span>
+    <li>
+      <input id="imagingFeatures-greaterThan1point5-benign" type="radio" name="imagingFeatures-greaterThan1point5" onclick="check(this.value, this.name)" value="benign" class="radioButton">
+      <label for="imagingFeatures-greaterThan1point5-benign">Benign Imaging Features</label>
+      <input id="imagingFeatures-greaterThan1point5-suspiciousOrFlashFilling" type="radio" name="imagingFeatures-greaterThan1point5" onclick="check(this.value, this.name)" value="suspiciousOrFlashFilling" class="radioButton">
+      <label for="imagingFeatures-greaterThan1point5-suspiciousOrFlashFilling">Suspicious <u>OR</u> "Flash-filling" Imaging Features</label>
+    </li>
+    <br>
+  </div>
+  
+  <div id="riskLevelGreaterThan1point5Div" class="divContainer" style="display:none">
+    <span>Risk Level</span>
+    <li>
+      <input id="riskLevel-greaterThan1point5-low" type="radio" name="riskLevel-greaterThan1point5" onclick="check(this.value, this.name)" value="low" class="radioButton">
+      <label for="riskLevel-greaterThan1point5-low">Low</label>
+      <input id="riskLevel-greaterThan1point5-high" type="radio" name="riskLevel-greaterThan1point5" onclick="check(this.value, this.name)" value="high" class="radioButton">
+      <label for="riskLevel-greaterThan1point5-high">High</label>
+    </li>
+    <br>
+  </div>
+</ul>
+
+<button class="button" onclick="clearInputs()">Clear</button>
+<br>
+
+<br>
+<!--<p id="answer"></p>-->
+<input type="text" value="" id="answer" style='width:100%' class="answerWithNoBorder" readonly="readonly">
+
+<br>
+<br>
+
+<!--<div class="tooltip">-->
+<button id="copyTextId" class="button" onclick="copyText()" onmouseout="outFunc()" style="display:none;">
+  <!--<span class="tooltiptext" id="myTooltip"></span>-->
+  Copy text
+  </button>
+<br>
+</div>
       </div>
-      
       <button class="accordion">Section 2</button>
       <div class="panel">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -49,7 +409,7 @@
   <script>
     var acc = document.getElementsByClassName("accordion");
     var i;
-     
+    
     for (i = 0; i < acc.length; i++) {
       acc[i].addEventListener("click", function() {
         this.classList.toggle("active");
