@@ -3,457 +3,145 @@
   <head>
     <title>Radiology Algorithms</title>
     <h1>Radiology Algorithms</h1>
-    <style>
-      * {
-        font-family: Arial;
-      }
-      .accordion {
-        background-color: #eee;
-        color: #444;
-        cursor: pointer;
-        padding: 18px;
-        width: 100%;
-        border: none;
-        text-align: left;
-        outline: none;
-        font-size: 15px;
-        transition: 0.4s;
-      }
-      
-      .accordion:after {
-        content: '\02795'; /* Unicode character for "plus" sign (+) */
-        font-size: 13px;
-        color: #777;
-        float: right;
-        margin-left: 5px;
-      }
-      
-      .active:after {
-        content: "\2796"; /* Unicode character for "minus" sign (-) */
-      }
-      
-      .active, .accordion:hover, #copyTextId:hover, #clearButton:hover {
-        background-color: #ccc; 
-      }
-      
-      .panel {
-        padding: 0 18px;
-        display: none;
-        background-color: white;
-        overflow: hidden;
-        max-height: 0;
-        transition: max-height 0.2s ease-out;
-      }
-      
-      .hidden {
-      	display: none;
-      }
-      
-      .visible {
-        display: block;
-      }
-    </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/liver-mass.css" />
   </head>
+  
   <body>
-    <button class="accordion" onclick="toggleAccordion()">Liver Mass Algorithm</button>
-    <div class="panel hidden">
-    <script>
-      var dict = {};
-      
-      function getText(selection) {
-      	var textDict = {
-      	  "lessThan1_low": "Benign, no further follow-up",
-      	  "lessThan1_high": "Follow-up MRI in 3-6 months",
-      	  "1to1point5_benign": "Benign, no further follow-up",
-      	  "1to1point5_suspicious": "Hepatic MRI now",
-      	  "1to1point5_flashFilling_low": "Benign, no further follow-up",
-      	  "1to1point5_flashFilling_high": "Hepatic MRI now",
-      	  "greaterThan1point5_benign": "Benign, no further follow-up",
-      	  "greaterThan1point5_suspiciousOrFlashFilling_low": "Hepatic MRI now",
-      	  "greaterThan1point5_suspiciousOrFlashFilling_high": "Hepatic MRI now or biopsy",
-        }
-      	return textDict[selection] === undefined? "" : textDict[selection];
-      }
-      
-      function showRiskLevelLessThan1(show) {
-      	document.getElementById("riskLevelLessThan1Div").style.display = show ? 'block' : 'none';
-      }
-      function showImagingFeatures1to1point5(show) {
-      	document.getElementById("imagingFeatures1to1point5Div").style.display = show ? 'block' : 'none';
-      }
-      function showRiskLevel1to1point5(show) {
-      	document.getElementById("riskLevel1to1point5Div").style.display = show ? 'block' : 'none';
-      }
-      function showImagingFeaturesGreaterThan1point5(show) {
-      	document.getElementById("imagingFeaturesGreaterThan1point5Div").style.display = show ? 'block' : 'none';
-      }
-      function showRiskLevelGreaterThan1point5(show) {
-      	document.getElementById("riskLevelGreaterThan1point5Div").style.display = show ? 'block' : 'none';
-      }
-      function isVisible(elementId) {
-        return document.getElementById(`${elementId}`).style.display === "" || 
-          document.getElementById(`${elementId}`).style.display === "block";
-      }
-      function isSelected(elementId) {
-        return document.getElementById(`${elementId}`).checked;
-      }
-      
-      function getAllVisibleInputs() {
-        var elements = document.getElementsByClassName("divContainer");
-        var elementsArray = [...elements];
-        var visibleInputs = elementsArray.filter(e => e.style.display === "" || e.style.display === "block");
-        
-        var values = [];
-        for (var i = 0; i < visibleInputs.length; i++) {
-          var radioButtons = visibleInputs[i].getElementsByClassName("radioButton");
-            for (var j = 0; j < radioButtons.length; j++) {
-            if (radioButtons[j].checked) {
-              values.push(radioButtons[j].value);
-            }
-          }
-        }
-        
-        return values.join("_");   
-      }
-      
-      function check(val, name) {
-      	dict[name] = val;
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Liver Mass Algorithm
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          <style>
           
-        if (name === "liverMassSize" && val === "lessThan1") {
-          showRiskLevelLessThan1(true);
-          showImagingFeatures1to1point5(false);
-          showRiskLevel1to1point5(false);
-          showRiskLevelGreaterThan1point5(false);
-          showImagingFeaturesGreaterThan1point5(false);
-        }
-        
-        if (name === "liverMassSize" && val === "1to1point5") {
-        	showImagingFeatures1to1point5(true);
-        	showRiskLevelLessThan1(false);
-        	
-        	showRiskLevelGreaterThan1point5(false);
-        	showImagingFeaturesGreaterThan1point5(false);
-        	
-        	// if flash filling is selected, show. otherwise, hide
-        	var showRiskLevel1to1point5Group = isVisible("imagingFeatures1to1point5Div") && isSelected("imagingFeatures-1to1point5-flashFilling");
-        	showRiskLevel1to1point5(showRiskLevel1to1point5Group);
-        }
-        
-        if (name === "liverMassSize" && val === "greaterThan1point5") {
-        	showImagingFeaturesGreaterThan1point5(true);
-        	showImagingFeatures1to1point5(false);
-        	showRiskLevelLessThan1(false);
-        	showRiskLevel1to1point5(false);
-        	
-        	// if sus OR flash filling is selected, show. otherwise, hide
-        	var showRiskLevelGreaterThan1point5Group = isVisible("imagingFeaturesGreaterThan1point5Div") && isSelected("imagingFeatures-greaterThan1point5-suspiciousOrFlashFilling");
-        	showRiskLevelGreaterThan1point5(showRiskLevelGreaterThan1point5Group);
-        }
-        
-        if (name === "imagingFeatures-1to1point5" && val !== "flashFilling") {
-          showRiskLevel1to1point5(false);
-          showRiskLevelGreaterThan1point5(false);
-          showImagingFeaturesGreaterThan1point5(false);
-        }
-        
-        if (name === "imagingFeatures-1to1point5" && val === "flashFilling") {
-          showRiskLevel1to1point5(true);
-          showRiskLevelGreaterThan1point5(false);
-          showImagingFeaturesGreaterThan1point5(false);
-        }
-        
-        if (name === "imagingFeatures-greaterThan1point5" && val === "benign") {
-          showRiskLevelGreaterThan1point5(false);
-        }
-        
-        if (name === "imagingFeatures-greaterThan1point5" && val === "suspiciousOrFlashFilling") {
-          showRiskLevelGreaterThan1point5(true);
-        }
-        
-        var result = getAllVisibleInputs();
-        var textToDisplay = getText(result);
-      	document.getElementById("answer").value=textToDisplay;
-      	
-      	showCopyTextButton(textToDisplay !== "")
-      }
-      
-      function showCopyTextButton(show) {
-        var answerEl = document.getElementById("answer");
-        var copyTextEl = document.getElementById("copyTextId");
-        if (show) {
-          answerEl.classList.remove("answerWithNoBorder");
-          answerEl.classList.add("answerWithBorder");
-          copyTextEl.classList.remove("hidden");
-          copyTextEl.classList.add("visible");
-        }
-        else {
-          answerEl.classList.remove("answerWithBorder");
-          answerEl.classList.add("answerWithNoBorder");
-          copyTextEl.classList.add("hidden");
-          copyTextEl.classList.remove("visible");
-        }
-      }
+          </style>
+          <div class="accordion-body">
+           <ul class="liverMassCalc">
+            <div id="liverMassSizeDiv" class="divContainer">
+              <span>Liver Mass Size</span>
+              <li>
+                <input id="liverMassSize-lessThan1" type="radio" name="liverMassSize" onclick="check(this.value, this.name)" value="lessThan1" class="radioButton">
+                <label for="liverMassSize-lessThan1"><1 cm</label>
+                <input id="liverMassSize-1to1point5" type="radio" name="liverMassSize" onclick="check(this.value, this.name)" value="1to1point5" class="radioButton">
+                <label for="liverMassSize-1to1point5">1.0-1.5 cm</label>  
+                <input id="liverMassSize-greaterThan1point5" type="radio" name="liverMassSize" onclick="check(this.value, this.name)" value="greaterThan1point5" class="radioButton">
+                <label for="liverMassSize-greaterThan1point5">>1.5 cm</label>  
+              </li>
+              <br>
+            </div>
+  
+            <div id="riskLevelLessThan1Div" class="divContainer" style="display:none">
+              <span>Risk Level</span>
+              <li>
+                <input id="riskLevel-lessThan1-low" type="radio" name="riskLevel-lessThan1" onclick="check(this.value, this.name)" value="low" class="radioButton">
+                <label for="riskLevel-lessThan1-low">Low</label>
+                <input id="riskLevel-lessThan1-high" type="radio" name="riskLevel-lessThan1" onclick="check(this.value, this.name)" value="high" class="radioButton">
+                <label for="riskLevel-lessThan1-high">High</label>
+              </li>
+              <br>
+            </div>
+  
+            <div id="imagingFeatures1to1point5Div" class="divContainer" style="display:none">
+              <span>Imaging Features</span>
+              <li>
+                <input id="imagingFeatures-1to1point5-benign" type="radio" name="imagingFeatures-1to1point5" onclick="check(this.value, this.name)" value="benign" class="radioButton">
+                <label for="imagingFeatures-1to1point5-benign">Benign Imaging Features</label>
+                <input id="imagingFeatures-1to1point5-suspicious" type="radio" name="imagingFeatures-1to1point5" onclick="check(this.value, this.name)" value="suspicious" class="radioButton">
+                <label for="imagingFeatures-1to1point5-suspicious">Suspicious Imaging Features</label>
+                <input id="imagingFeatures-1to1point5-flashFilling" type="radio" name="imagingFeatures-1to1point5" onclick="check(this.value, this.name)" value="flashFilling" class="radioButton">
+                <label for="imagingFeatures-1to1point5-flashFilling">"Flash-filling" Imaging Feature</label>
+              </li>
+              <br>
+            </div>
+  
+            <div id="riskLevel1to1point5Div" class="divContainer" style="display:none">
+              <span>Risk Level</span>
+              <li>
+                <input id="riskLevel-1to1point5-low" type="radio" name="riskLevel-1to1point5" onclick="check(this.value, this.name)" value="low" class="radioButton">
+                <label for="riskLevel-1to1point5-low">Low</label>
+                <input id="riskLevel-1to1point5-high" type="radio" name="riskLevel-1to1point5" onclick="check(this.value, this.name)" value="high" class="radioButton">
+                <label for="riskLevel-1to1point5-high">High</label>
+              </li>
+              <br>
+            </div>
+  
+            <div id="imagingFeaturesGreaterThan1point5Div" class="divContainer" style="display:none">
+              <span>Imaging Features</span>
+              <li>
+                <input id="imagingFeatures-greaterThan1point5-benign" type="radio" name="imagingFeatures-greaterThan1point5" onclick="check(this.value, this.name)" value="benign" class="radioButton">
+                <label for="imagingFeatures-greaterThan1point5-benign">Benign Imaging Features</label>
+                <input id="imagingFeatures-greaterThan1point5-suspiciousOrFlashFilling" type="radio" name="imagingFeatures-greaterThan1point5" onclick="check(this.value, this.name)" value="suspiciousOrFlashFilling" class="radioButton">
+                <label for="imagingFeatures-greaterThan1point5-suspiciousOrFlashFilling">Suspicious <u>OR</u> "Flash-filling" Imaging Features</label>
+              </li>
+              <br>
+            </div>
+  
+            <div id="riskLevelGreaterThan1point5Div" class="divContainer" style="display:none">
+              <span>Risk Level</span>
+              <li>
+                <input id="riskLevel-greaterThan1point5-low" type="radio" name="riskLevel-greaterThan1point5" onclick="check(this.value, this.name)" value="low" class="radioButton">
+                <label for="riskLevel-greaterThan1point5-low">Low</label>
+                <input id="riskLevel-greaterThan1point5-high" type="radio" name="riskLevel-greaterThan1point5" onclick="check(this.value, this.name)" value="high" class="radioButton">
+                <label for="riskLevel-greaterThan1point5-high">High</label>
+              </li>
+              <br>
+            </div>
+          </ul>
 
-      function toggleAccordion() {
-        var currEl = event.srcElement;
-        
-        // hide other accordions
-        var activeEls = document.getElementsByClassName("accordion");
-        for(let j = 0; j < activeEls.length; j++) {
-          // only hide if it's not the one that was selected.
-          // this is because if you click the currently open one, it shouldn't
-          // automatically be hidden until further below
-          if (activeEls[j] !== currEl) {
-            activeEls[j].classList.remove("active");
-            var nextPanel = activeEls[j].nextElementSibling;
-            nextPanel.classList.add("hidden");
-            nextPanel.classList.remove("visible");
-            nextPanel.style.maxHeight = null;
-          }
-        }
-        
-        currEl.classList.toggle("active");
-  
-        // if the current panel is hidden, display it. otherwise, hide it
-        var panel = currEl.nextElementSibling;
-        if (panel.classList.contains("hidden")) {
-          panel.classList.remove("hidden");
-          panel.classList.add("visible");
-        }
-        else {
-          panel.classList.add("hidden");
-          panel.classList.remove("visible");
-        }
-        
-        // animate accordion to expand or close
-        if (panel.style.maxHeight) {
-          panel.style.maxHeight = null;
-        } else {
-          panel.style.maxHeight = panel.scrollHeight + "px";
-        }
-      }
-
-      function debug(text) {
-      	document.getElementById("debug").innerHTML="Debug: " + text;
-      }
-
-      function clearInputs() {
-      	var elements = document.getElementsByClassName("radioButton");
-      	var elementsArray = [...elements];
-      	for (var i = 0; i < elementsArray.length; i++) {
-      	  elementsArray[i].checked = false;
-      	}
-      
-      	document.getElementById("answer").value="";
-      	showCopyTextButton(false);
-      	
-      	showImagingFeatures1to1point5(false);
-      	showRiskLevelLessThan1(false);
-      	showRiskLevel1to1point5(false);
-      	showRiskLevelGreaterThan1point5(false);
-      	showImagingFeaturesGreaterThan1point5(false);	
-      }
-  
-      function copyText() {
-        var copyText = document.getElementById("answer");
-        copyText.select();
-        copyText.setSelectionRange(0, 99999);
-        navigator.clipboard.writeText(copyText.value);
-        
-        // display "Copied" text
-        var el = document.getElementById("textCopied");
-        // debug(JSON.stringify(el.classList));
-        el.classList.remove("hidden");
-        el.classList.add("visible");
-      }
-      
-      $(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
-    </script>
-
-    <style>
-      .liverMassCalc {
-        list-style-type: none;
-        margin: 25px 0 0 0;
-        padding: 0;
-      }
-      
-      .liverMassCalc label {
-        padding: 5px;
-        cursor: pointer;
-        -webkit-appearance: button;
-        /* WebKit */
-        -moz-appearance: button;
-        /* Mozilla */
-        -o-appearance: button;
-        /* Opera */
-        -ms-appearance: button;
-        /* Internet Explorer */
-        appearance: button;
-        /* CSS3 */
-      }
-      
-      input[type="radio"] {
-        display: none;
-      }      
-      
-      input:checked + label {
-          background:lightblue;
-      }
-      
-      .divContainer label {
-        display: inline-block;
-        background-color: #ffffff;
-        padding: 4px 11px;
-        font-family: Arial;
-        font-size: 14px;
-        cursor: pointer;
-        border-style: solid;
-      }      
-      
-      span {
-        font-size: 14px;
-      }
-      
-      label:hover {
-        color: #AAAAAA;
-      }
-      
-      .answerWithBorder {
-        border-top-style: none;
-        border-right-style: none;
-        border-bottom-style: 1px gray;
-        border-left: 6px solid black;
-        outline: none;
-      }
-      
-      ::selection {
-        background: lightblue;
-      }
-      
-      .answerWithNoBorder {
-       border: none;
-       outline: none;
-      }
-      
-      #answer {
-        /*border: none;*/
-        font-size: 16px;
-        /*outline: none;*/
-      }
-      
-      .hidden {
-        display: none;
-      }
-      
-      .visible {
-        display: block;
-      }
-    </style>
-  <body>
-
-<ul class="liverMassCalc">
-  <div id="liverMassSizeDiv" class="divContainer">
-    <span>Liver Mass Size</span>
-    <li>
-      <input id="liverMassSize-lessThan1" type="radio" name="liverMassSize" onclick="check(this.value, this.name)" value="lessThan1" class="radioButton">
-      <label for="liverMassSize-lessThan1"><1 cm</label>
-      <input id="liverMassSize-1to1point5" type="radio" name="liverMassSize" onclick="check(this.value, this.name)" value="1to1point5" class="radioButton">
-      <label for="liverMassSize-1to1point5">1.0-1.5 cm</label>  
-      <input id="liverMassSize-greaterThan1point5" type="radio" name="liverMassSize" onclick="check(this.value, this.name)" value="greaterThan1point5" class="radioButton">
-      <label for="liverMassSize-greaterThan1point5">>1.5 cm</label>  
-    </li>
-    <br>
-  </div>
-  
-  <div id="riskLevelLessThan1Div" class="divContainer" style="display:none">
-    <span>Risk Level</span>
-    <li>
-      <input id="riskLevel-lessThan1-low" type="radio" name="riskLevel-lessThan1" onclick="check(this.value, this.name)" value="low" class="radioButton">
-      <label for="riskLevel-lessThan1-low">Low</label>
-      <input id="riskLevel-lessThan1-high" type="radio" name="riskLevel-lessThan1" onclick="check(this.value, this.name)" value="high" class="radioButton">
-      <label for="riskLevel-lessThan1-high">High</label>
-    </li>
-    <br>
-  </div>
-  
-  <div id="imagingFeatures1to1point5Div" class="divContainer" style="display:none">
-    <span>Imaging Features</span>
-    <li>
-      <input id="imagingFeatures-1to1point5-benign" type="radio" name="imagingFeatures-1to1point5" onclick="check(this.value, this.name)" value="benign" class="radioButton">
-      <label for="imagingFeatures-1to1point5-benign">Benign Imaging Features</label>
-      <input id="imagingFeatures-1to1point5-suspicious" type="radio" name="imagingFeatures-1to1point5" onclick="check(this.value, this.name)" value="suspicious" class="radioButton">
-      <label for="imagingFeatures-1to1point5-suspicious">Suspicious Imaging Features</label>
-      <input id="imagingFeatures-1to1point5-flashFilling" type="radio" name="imagingFeatures-1to1point5" onclick="check(this.value, this.name)" value="flashFilling" class="radioButton">
-      <label for="imagingFeatures-1to1point5-flashFilling">"Flash-filling" Imaging Feature</label>
-    </li>
-    <br>
-  </div>
-  
-  <div id="riskLevel1to1point5Div" class="divContainer" style="display:none">
-    <span>Risk Level</span>
-    <li>
-      <input id="riskLevel-1to1point5-low" type="radio" name="riskLevel-1to1point5" onclick="check(this.value, this.name)" value="low" class="radioButton">
-      <label for="riskLevel-1to1point5-low">Low</label>
-      <input id="riskLevel-1to1point5-high" type="radio" name="riskLevel-1to1point5" onclick="check(this.value, this.name)" value="high" class="radioButton">
-      <label for="riskLevel-1to1point5-high">High</label>
-    </li>
-    <br>
-  </div>
-  
-  <div id="imagingFeaturesGreaterThan1point5Div" class="divContainer" style="display:none">
-    <span>Imaging Features</span>
-    <li>
-      <input id="imagingFeatures-greaterThan1point5-benign" type="radio" name="imagingFeatures-greaterThan1point5" onclick="check(this.value, this.name)" value="benign" class="radioButton">
-      <label for="imagingFeatures-greaterThan1point5-benign">Benign Imaging Features</label>
-      <input id="imagingFeatures-greaterThan1point5-suspiciousOrFlashFilling" type="radio" name="imagingFeatures-greaterThan1point5" onclick="check(this.value, this.name)" value="suspiciousOrFlashFilling" class="radioButton">
-      <label for="imagingFeatures-greaterThan1point5-suspiciousOrFlashFilling">Suspicious <u>OR</u> "Flash-filling" Imaging Features</label>
-    </li>
-    <br>
-  </div>
-  
-  <div id="riskLevelGreaterThan1point5Div" class="divContainer" style="display:none">
-    <span>Risk Level</span>
-    <li>
-      <input id="riskLevel-greaterThan1point5-low" type="radio" name="riskLevel-greaterThan1point5" onclick="check(this.value, this.name)" value="low" class="radioButton">
-      <label for="riskLevel-greaterThan1point5-low">Low</label>
-      <input id="riskLevel-greaterThan1point5-high" type="radio" name="riskLevel-greaterThan1point5" onclick="check(this.value, this.name)" value="high" class="radioButton">
-      <label for="riskLevel-greaterThan1point5-high">High</label>
-    </li>
-    <br>
-  </div>
-</ul>
-
-<button id="clearButton" class="btn btn-outline-secondary btn-sm" onclick="clearInputs()">Clear</button>
-<br><br><br>
-<input type="text" value="" id="answer" style='width:100%' class="answerWithNoBorder" readonly="readonly">
-<br><br><br>
-<button id="copyTextId" class="btn btn-outline-secondary btn-sm hidden" onclick="copyText()" data-toggle="tooltip" data-placement="top" title="Text copied!">Copy text</button>
-<br><br><br><br><br><br><br><br><br><br><br><br>
-</div>
+          <button id="clearButton" class="btn btn-outline-secondary btn-sm" onclick="clearInputs()">Clear</button>
+          <br><br><br>
+          <input type="text" value="" id="answer" style='width:100%' class="answerWithNoBorder" readonly="readonly">
+          <br><br><br>
+          <button id="copyTextId" class="btn btn-outline-secondary btn-sm hidden" onclick="copyText()" data-toggle="tooltip" data-placement="right" title="Text copied!">Copy text</button>
+          <br><br><br><br><br><br><br><br><br><br><br><br>     
+            <p id="debug"></p>
+            
+          </div>
+        </div>
       </div>
-      <button class="accordion" onclick="toggleAccordion()">Section 2</button>
-      <div class="panel hidden">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Accordion Item #2
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
       </div>
-      
-      <button class="accordion" onclick="toggleAccordion()">Section 3</button>
-      <div class="panel hidden">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Accordion Item #3
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
       </div>
-      
-      <p id="debug"></p>
-
+    </div>
+    <script src="js/scripts.js"></script>
+    <script src="js/liver-mass.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script>
-      // This enables the tooltips
       $(function () {
-        $('[data-toggle="tooltip"]').tooltip({trigger:'click'})
+        // This enables the tooltips to be triggered when they are clicked
+        $('[data-toggle="tooltip"]').tooltip({"trigger":'click'})
+        // When you leave the copy text button, the tooltip goes away
+        $('#copyTextId').mouseout(function() {
+          $('#copyTextId').tooltip('hide')
+        })
       })
     </script>
   </body>
