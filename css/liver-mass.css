@@ -51,21 +51,15 @@ label:hover {
     border-bottom-style: 1px gray;
     border-left: 6px solid black;
     outline: none;
+    width: 100%;
 }
 
 ::selection {
     background: lightblue;
 }
 
-.answerWithNoBorder {
-    border: none;
-    outline: none;
-}
-
 #answer {
-    /*border: none;*/
     font-size: 16px;
-    /*outline: none;*/
 }
 
 .hidden {
