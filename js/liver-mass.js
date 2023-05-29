@@ -147,7 +147,21 @@ function copyText() {
     copyText.select();
     copyText.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(copyText.value);
+
+    showTooltip();
 }
+
+function showTooltip() {
+    const myTooltipEl = document.getElementById('copyTextId');
+    const tooltip = bootstrap.Tooltip.getOrCreateInstance(myTooltipEl);
+    tooltip.show();
+  }
+  
+  function hideTooltip() {
+    const myTooltipEl = document.getElementById('copyTextId');
+    const tooltip = bootstrap.Tooltip.getOrCreateInstance(myTooltipEl);
+    tooltip.hide();
+  }
 
 function debug(text) {
     document.getElementById("debug").innerHTML = "DEBUG: " + text;
