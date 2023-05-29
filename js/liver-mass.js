@@ -113,13 +113,13 @@ function showCopyTextButton(show) {
   var answerEl = document.getElementById("answer");
   var copyTextEl = document.getElementById("copyTextId");
   if (show) {
-    answerEl.classList.remove("answerWithNoBorder");
+    answerEl.classList.remove("hidden");
     answerEl.classList.add("answerWithBorder");
     copyTextEl.classList.remove("hidden");
     copyTextEl.classList.add("visible");
   } else {
     answerEl.classList.remove("answerWithBorder");
-    answerEl.classList.add("answerWithNoBorder");
+    answerEl.classList.add("hidden");
     copyTextEl.classList.add("hidden");
     copyTextEl.classList.remove("visible");
   }
