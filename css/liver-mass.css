@@ -2,9 +2,9 @@
     list-style-type: none;
     margin: 25px 0 0 0;
     padding: 0;
-  }
-  
-  .liverMassCalc label {
+}
+
+.liverMassCalc label {
     padding: 5px;
     cursor: pointer;
     -webkit-appearance: button;
@@ -17,17 +17,17 @@
     /* Internet Explorer */
     appearance: button;
     /* CSS3 */
-  }
-  
-  input[type="radio"] {
+}
+
+input[type="radio"] {
     display: none;
-  }      
-  
-  input:checked + label {
-      background:lightblue;
-  }
-  
-  .divContainer label {
+}      
+
+input:checked + label {
+    background:lightblue;
+}
+
+.divContainer label {
     display: inline-block;
     background-color: #ffffff;
     padding: 4px 11px;
@@ -35,43 +35,43 @@
     font-size: 14px;
     cursor: pointer;
     border-style: solid;
-  }      
-  
-  span {
+}      
+
+span {
     font-size: 14px;
-  }
-  
-  label:hover {
+}
+
+label:hover {
     color: #AAAAAA;
-  }
-  
-  .answerWithBorder {
+}
+
+.answerWithBorder {
     border-top-style: none;
     border-right-style: none;
     border-bottom-style: 1px gray;
     border-left: 6px solid black;
     outline: none;
-  }
-  
-  ::selection {
+}
+
+::selection {
     background: lightblue;
-  }
-  
-  .answerWithNoBorder {
-   border: none;
-   outline: none;
-  }
-  
-  #answer {
+}
+
+.answerWithNoBorder {
+    border: none;
+    outline: none;
+}
+
+#answer {
     /*border: none;*/
     font-size: 16px;
     /*outline: none;*/
-  }
+}
 
-  .hidden {
-      display: none;
-  }
-  
-  .visible {
+.hidden {
+    display: none;
+}
+
+.visible {
     display: block;
-  }
+}
