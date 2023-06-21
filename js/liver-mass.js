@@ -157,11 +157,11 @@ function showTooltip() {
     tooltip.show();
   }
   
-  function hideTooltip() {
+function hideTooltip() {
     const myTooltipEl = document.getElementById('copyTextId');
     const tooltip = bootstrap.Tooltip.getOrCreateInstance(myTooltipEl);
     tooltip.hide();
-  }
+}
 
 function debug(text) {
     document.getElementById("debug").innerHTML = "DEBUG: " + text;
