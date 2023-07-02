@@ -3,25 +3,44 @@ function gallbladder_getText(selection) {
     "extremelyLow_extremelyLow-lessThan9": "No follow-up",
     "extremelyLow_extremelyLow-10to14": "Follow-up US at 6, 12, 24 months",
     "extremelyLow_extremelyLow-15orMore": "Surgical consult",
-   
+    "low_low-lessThan6": "No follow-up",
+    "low_low-7to9": "Follow-up US at 12 months",
+    "low_low-10to14": "Follow-up US at 6, 12, 24, 36 months vs surgical consult",
+    "low_low-15orMore": "Surgical consult",
+    "indeterminate_indeterminate-lessThan6": "Follow-up US at 6, 12, 24, 36 months vs surgical consult",
+    "indeterminate_indeterminate-7orMore": "Surgical consult"
   }
   return textDict[selection] === undefined ? "" : textDict[selection];
 }
 
-function showGallbladderExtremelyLowSizeDiv(show) {
-  document.getElementById("gallbladderExtremelyLowSizeDiv").style.display = show ? 'block' : 'none';
-}
-
 function gallbladder_check(val, name) {
   if (name === "gallbladderRisk" && val === "extremelyLow") {
-    showGallbladderExtremelyLowSizeDiv(true);
+    showElement("gallbladderExtremelyLowSizeDiv", true);
+    
+    showElement("gallbladderLowSizeDiv", false);
+    showElement("gallbladderIndeterminateSizeDiv", false);
+  }
+  
+  if (name === "gallbladderRisk" && val === "low") {
+    showElement("gallbladderLowSizeDiv", true);
+  
+    showElement("gallbladderExtremelyLowSizeDiv", false);
+    showElement("gallbladderIndeterminateSizeDiv", false);
+  }
+  
+  if (name === "gallbladderRisk" && val === "indeterminate") {
+    showElement("gallbladderIndeterminateSizeDiv", true);
+    
+    showElement("gallbladderExtremelyLowSizeDiv", false);
+    showElement("gallbladderLowSizeDiv", false);
   }
   
   var result = gallbladder_getAllVisibleInputs();
+  debug(result);
   var textToDisplay = gallbladder_getText(result);
   document.getElementById("gallbladder_answer").value = textToDisplay;
 
-  gallbladder_showCopyTextButton(textToDisplay !== "")
+  showCopyTextButton("gallbladder_answer", "gallbladder_copyTextId", textToDisplay !== "");
 }
 
 function gallbladder_getAllVisibleInputs() {
@@ -42,22 +61,6 @@ function gallbladder_getAllVisibleInputs() {
   return values.join("_");
 }
 
-function gallbladder_showCopyTextButton(show) {
-  var answerEl = document.getElementById("gallbladder_answer");
-  var copyTextEl = document.getElementById("gallbladder_copyTextId");
-  if (show) {
-    answerEl.classList.remove("hidden");
-    answerEl.classList.add("answerWithBorder");
-    copyTextEl.classList.remove("hidden");
-    copyTextEl.classList.add("visible");
-  } else {
-    answerEl.classList.remove("answerWithBorder");
-    answerEl.classList.add("hidden");
-    copyTextEl.classList.add("hidden");
-    copyTextEl.classList.remove("visible");
-  }
-}
-
 function gallbladder_clearInputs() {
   var elements = document.getElementsByClassName("gallbladder_radioButton");
   var elementsArray = [...elements];
@@ -66,24 +69,10 @@ function gallbladder_clearInputs() {
   }
 
   document.getElementById("gallbladder_answer").value = "";
-  gallbladder_showCopyTextButton(false);
-  showGallbladderExtremelyLowSizeDiv(false);
+
+  showCopyTextButton("gallbladder_answer", "gallbladder_copyTextId", false);
+  showElement("gallbladderExtremelyLowSizeDiv", false);
 }
-
-function gallbladder_copyText() {
-  var copyText = document.getElementById("gallbladder_answer");
-  copyText.select();
-  copyText.setSelectionRange(0, 99999);
-  navigator.clipboard.writeText(copyText.value);
-
-  gallbladder_showTooltip();
-}
-
-function gallbladder_showTooltip() {
-    const myTooltipEl = document.getElementById('gallbladder_copyTextId');
-    const tooltip = bootstrap.Tooltip.getOrCreateInstance(myTooltipEl);
-    tooltip.show();
-  }
   
 function gallbladder_hideTooltip() {
     const myTooltipEl = document.getElementById('gallbladder_copyTextId');
@@ -93,7 +82,7 @@ function gallbladder_hideTooltip() {
 
 // ------------------
 
-function getText(selection) {
+function liverMass_getText(selection) {
   var textDict = {
     "lessThan1_low": "Benign, no further follow-up",
     "lessThan1_high": "Follow-up MRI in 3-6 months",
@@ -195,32 +184,16 @@ function liverMass_check(val, name) {
   }
 
   var result = liverMass_getAllVisibleInputs('liverMassContainer', 'radioButton');
-  var textToDisplay = getText(result);
+  var textToDisplay = liverMass_getText(result);
   document.getElementById("answer").value = textToDisplay;
 
-  showCopyTextButton1('answer', 'copyTextId', textToDisplay !== "");
+  showCopyTextButton('answer', 'copyTextId', textToDisplay !== "");
 }
 
 // 'answer', 'copyTextId', 
-function showCopyTextButton1(answerElementId, tooltipId, show) {
+function showCopyTextButton(answerElementId, tooltipId, show) {
   var answerEl = document.getElementById(`${answerElementId}`);
   var copyTextEl = document.getElementById(`${tooltipId}`);
-  if (show) {
-    answerEl.classList.remove("hidden");
-    answerEl.classList.add("answerWithBorder");
-    copyTextEl.classList.remove("hidden");
-    copyTextEl.classList.add("visible");
-  } else {
-    answerEl.classList.remove("answerWithBorder");
-    answerEl.classList.add("hidden");
-    copyTextEl.classList.add("hidden");
-    copyTextEl.classList.remove("visible");
-  }
-}
-
-function showCopyTextButton(show) {
-  var answerEl = document.getElementById("answer");
-  var copyTextEl = document.getElementById("copyTextId");
   if (show) {
     answerEl.classList.remove("hidden");
     answerEl.classList.add("answerWithBorder");
@@ -242,8 +215,7 @@ function liverMass_clearInputs() {
   }
 
   document.getElementById("answer").value = "";
-  showCopyTextButton1('answer', 'copyTextId', false);
-  // showCopyTextButton(false);
+  showCopyTextButton('answer', 'copyTextId', false);
 
   showElement("imagingFeatures1to1point5Div", false);
   showElement("riskLevelLessThan1Div", false);
@@ -252,7 +224,7 @@ function liverMass_clearInputs() {
   showElement("imagingFeaturesGreaterThan1point5Div", false);
 }
 
-function copyText1(elementId, tooltipId) {
+function copyText(elementId, tooltipId) {
   var copyText = document.getElementById(`${elementId}`);
   copyText.select();
   copyText.setSelectionRange(0, 99999);
@@ -262,32 +234,9 @@ function copyText1(elementId, tooltipId) {
   const tooltip = bootstrap.Tooltip.getOrCreateInstance(myTooltipEl);
   tooltip.show();
 }
-
-// answer, copyTextId
-// function copyText(elementId, tooltipId) {
-function copyText() {
-    var copyText = document.getElementById("answer");
-    copyText.select();
-    copyText.setSelectionRange(0, 99999);
-    navigator.clipboard.writeText(copyText.value);
-
-    showTooltip();
-}
-
-function showTooltip() {
-    const myTooltipEl = document.getElementById('copyTextId');
-    const tooltip = bootstrap.Tooltip.getOrCreateInstance(myTooltipEl);
-    tooltip.show();
-  }
   
 function hideTooltip(tooltipId) {
     const myTooltipEl = document.getElementById(`${tooltipId}`);
-    const tooltip = bootstrap.Tooltip.getOrCreateInstance(myTooltipEl);
-    tooltip.hide();
-}
-
-function hideTooltip() {
-    const myTooltipEl = document.getElementById('copyTextId');
     const tooltip = bootstrap.Tooltip.getOrCreateInstance(myTooltipEl);
     tooltip.hide();
 }
