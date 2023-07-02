@@ -22,11 +22,11 @@
             <div id="liverMassSizeDiv" class="divContainer liverMassContainer">
               <span>Liver Mass Size</span>
               <li>
-                <input id="liverMassSize-lessThan1" type="radio" name="liverMassSize" onclick="check(this.value, this.name)" value="lessThan1" class="radioButton">
+                <input id="liverMassSize-lessThan1" type="radio" name="liverMassSize" onclick="liverMass_check(this.value, this.name)" value="lessThan1" class="radioButton">
                 <label for="liverMassSize-lessThan1"><1 cm</label>
-                <input id="liverMassSize-1to1point5" type="radio" name="liverMassSize" onclick="check(this.value, this.name)" value="1to1point5" class="radioButton">
+                <input id="liverMassSize-1to1point5" type="radio" name="liverMassSize" onclick="liverMass_check(this.value, this.name)" value="1to1point5" class="radioButton">
                 <label for="liverMassSize-1to1point5">1.0-1.5 cm</label>  
-                <input id="liverMassSize-greaterThan1point5" type="radio" name="liverMassSize" onclick="check(this.value, this.name)" value="greaterThan1point5" class="radioButton">
+                <input id="liverMassSize-greaterThan1point5" type="radio" name="liverMassSize" onclick="liverMass_check(this.value, this.name)" value="greaterThan1point5" class="radioButton">
                 <label for="liverMassSize-greaterThan1point5">>1.5 cm</label>  
               </li>
               <br>
@@ -35,9 +35,9 @@
             <div id="riskLevelLessThan1Div" class="divContainer liverMassContainer" style="display:none">
               <span>Risk Level</span>
               <li>
-                <input id="riskLevel-lessThan1-low" type="radio" name="riskLevel-lessThan1" onclick="check(this.value, this.name)" value="low" class="radioButton">
+                <input id="riskLevel-lessThan1-low" type="radio" name="riskLevel-lessThan1" onclick="liverMass_check(this.value, this.name)" value="low" class="radioButton">
                 <label for="riskLevel-lessThan1-low">Low</label>
-                <input id="riskLevel-lessThan1-high" type="radio" name="riskLevel-lessThan1" onclick="check(this.value, this.name)" value="high" class="radioButton">
+                <input id="riskLevel-lessThan1-high" type="radio" name="riskLevel-lessThan1" onclick="liverMass_check(this.value, this.name)" value="high" class="radioButton">
                 <label for="riskLevel-lessThan1-high">High</label>
               </li>
               <br>
@@ -46,11 +46,11 @@
             <div id="imagingFeatures1to1point5Div" class="divContainer liverMassContainer" style="display:none">
               <span>Imaging Features</span>
               <li>
-                <input id="imagingFeatures-1to1point5-benign" type="radio" name="imagingFeatures-1to1point5" onclick="check(this.value, this.name)" value="benign" class="radioButton">
+                <input id="imagingFeatures-1to1point5-benign" type="radio" name="imagingFeatures-1to1point5" onclick="liverMass_check(this.value, this.name)" value="benign" class="radioButton">
                 <label for="imagingFeatures-1to1point5-benign">Benign Imaging Features</label>
-                <input id="imagingFeatures-1to1point5-suspicious" type="radio" name="imagingFeatures-1to1point5" onclick="check(this.value, this.name)" value="suspicious" class="radioButton">
+                <input id="imagingFeatures-1to1point5-suspicious" type="radio" name="imagingFeatures-1to1point5" onclick="liverMass_check(this.value, this.name)" value="suspicious" class="radioButton">
                 <label for="imagingFeatures-1to1point5-suspicious">Suspicious Imaging Features</label>
-                <input id="imagingFeatures-1to1point5-flashFilling" type="radio" name="imagingFeatures-1to1point5" onclick="check(this.value, this.name)" value="flashFilling" class="radioButton">
+                <input id="imagingFeatures-1to1point5-flashFilling" type="radio" name="imagingFeatures-1to1point5" onclick="liverMass_check(this.value, this.name)" value="flashFilling" class="radioButton">
                 <label for="imagingFeatures-1to1point5-flashFilling">"Flash-filling" Imaging Feature</label>
               </li>
               <br>
@@ -59,9 +59,9 @@
             <div id="riskLevel1to1point5Div" class="divContainer liverMassContainer" style="display:none">
               <span>Risk Level</span>
               <li>
-                <input id="riskLevel-1to1point5-low" type="radio" name="riskLevel-1to1point5" onclick="check(this.value, this.name)" value="low" class="radioButton">
+                <input id="riskLevel-1to1point5-low" type="radio" name="riskLevel-1to1point5" onclick="liverMass_check(this.value, this.name)" value="low" class="radioButton">
                 <label for="riskLevel-1to1point5-low">Low</label>
-                <input id="riskLevel-1to1point5-high" type="radio" name="riskLevel-1to1point5" onclick="check(this.value, this.name)" value="high" class="radioButton">
+                <input id="riskLevel-1to1point5-high" type="radio" name="riskLevel-1to1point5" onclick="liverMass_check(this.value, this.name)" value="high" class="radioButton">
                 <label for="riskLevel-1to1point5-high">High</label>
               </li>
               <br>
@@ -70,9 +70,9 @@
             <div id="imagingFeaturesGreaterThan1point5Div" class="divContainer liverMassContainer" style="display:none">
               <span>Imaging Features</span>
               <li>
-                <input id="imagingFeatures-greaterThan1point5-benign" type="radio" name="imagingFeatures-greaterThan1point5" onclick="check(this.value, this.name)" value="benign" class="radioButton">
+                <input id="imagingFeatures-greaterThan1point5-benign" type="radio" name="imagingFeatures-greaterThan1point5" onclick="liverMass_check(this.value, this.name)" value="benign" class="radioButton">
                 <label for="imagingFeatures-greaterThan1point5-benign">Benign Imaging Features</label>
-                <input id="imagingFeatures-greaterThan1point5-suspiciousOrFlashFilling" type="radio" name="imagingFeatures-greaterThan1point5" onclick="check(this.value, this.name)" value="suspiciousOrFlashFilling" class="radioButton">
+                <input id="imagingFeatures-greaterThan1point5-suspiciousOrFlashFilling" type="radio" name="imagingFeatures-greaterThan1point5" onclick="liverMass_check(this.value, this.name)" value="suspiciousOrFlashFilling" class="radioButton">
                 <label for="imagingFeatures-greaterThan1point5-suspiciousOrFlashFilling">Suspicious <u>OR</u> "Flash-filling" Imaging Features</label>
               </li>
               <br>
@@ -81,20 +81,20 @@
             <div id="riskLevelGreaterThan1point5Div" class="divContainer liverMassContainer" style="display:none">
               <span>Risk Level</span>
               <li>
-                <input id="riskLevel-greaterThan1point5-low" type="radio" name="riskLevel-greaterThan1point5" onclick="check(this.value, this.name)" value="low" class="radioButton">
+                <input id="riskLevel-greaterThan1point5-low" type="radio" name="riskLevel-greaterThan1point5" onclick="liverMass_check(this.value, this.name)" value="low" class="radioButton">
                 <label for="riskLevel-greaterThan1point5-low">Low</label>
-                <input id="riskLevel-greaterThan1point5-high" type="radio" name="riskLevel-greaterThan1point5" onclick="check(this.value, this.name)" value="high" class="radioButton">
+                <input id="riskLevel-greaterThan1point5-high" type="radio" name="riskLevel-greaterThan1point5" onclick="liverMass_check(this.value, this.name)" value="high" class="radioButton">
                 <label for="riskLevel-greaterThan1point5-high">High</label>
               </li>
               <br>
             </div>
           </ul>
 
-          <button id="clearButton" class="btn btn-outline-secondary btn-sm" onclick="clearInputs()">Clear</button>
+          <button id="clearButton" class="btn btn-outline-secondary btn-sm" onclick="liverMass_clearInputs()">Clear</button>
           <br><br>
           <input type="text" value="" id="answer" class="hidden" readonly="readonly">
           <br><br>
-          <button id="copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="hideTooltip()" onclick="copyText()" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Text copied!">Copy text</button>
+          <button id="copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="hideTooltip()" onclick="copyText1('answer', 'copyTextId')" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="manual" data-bs-title="Text copied!">Copy text</button>
           <p id="debug"></p>
           </div>
         </div>

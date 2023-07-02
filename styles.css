@@ -75,3 +75,16 @@ label:hover {
 .visible {
     display: block;
 }
+
+* {
+    font-family: Arial;
+}
+
+body {
+    padding: 25px 50px 50px 50px;
+}
+
+.accordion-button {
+    color: #444;
+    background-color: #eee;
+}
