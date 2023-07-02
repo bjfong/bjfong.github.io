@@ -36,7 +36,7 @@ function gallbladder_check(val, name) {
   }
   
   var result = gallbladder_getAllVisibleInputs();
-  debug(result);
+  // debug(result);
   var textToDisplay = gallbladder_getText(result);
   document.getElementById("gallbladder_answer").value = textToDisplay;
 
