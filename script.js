@@ -1,5 +1,4 @@
 function gallbladder_getText(selection) {
-<<<<<<< HEAD
   var textDict = {
     "extremelyLow_extremelyLow-lessThan9": "No follow-up",
     "extremelyLow_extremelyLow-10to14": "Follow-up US at 6, 12, 24 months",
@@ -562,5 +561,3 @@ function debug(text) {
   function debug(text) {
       document.getElementById("debug").innerHTML = "DEBUG: " + text;
   }
-  
->>>>>>> master

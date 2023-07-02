@@ -74,7 +74,7 @@ label:hover {
 
 .visible {
     display: block;
-<<<<<<< HEAD
+
 }
 
 * {
@@ -88,6 +88,4 @@ body {
 .accordion-button {
     color: #444;
     background-color: #eee;
-=======
->>>>>>> master
 }
