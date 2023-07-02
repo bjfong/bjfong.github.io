@@ -93,8 +93,8 @@
           <br><br>
           <input type="text" value="" id="answer" class="hidden" readonly="readonly">
           <br><br>
-          <button id="copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="hideTooltip()" onclick="copyText1('answer', 'copyTextId')" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="manual" data-bs-title="Text copied!">Copy text</button>
-          <p id="debug"></p>
+          <button id="copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="hideTooltip('copyTextId')" onclick="copyText('answer', 'copyTextId')" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="manual" data-bs-title="Text copied!">Copy text</button>
+          <!--<p id="debug"></p>-->
           </div>
         </div>
       </div>
@@ -124,7 +124,7 @@
                 <span>Size</span>
                 <li>
                   <input id="extremelyLow-lessThan9" type="radio" name="extremelyLow-Size" onclick="gallbladder_check(this.value, this.name)" value="extremelyLow-lessThan9" class="gallbladder_radioButton">
-                  <label for="extremelyLow-lessThan9"><= 9 mm</label>
+                  <label for="extremelyLow-lessThan9">≤ 9 mm</label>
                   <input id="extremelyLow-10to14" type="radio" name="extremelyLow-Size" onclick="gallbladder_check(this.value, this.name)" value="extremelyLow-10to14" class="gallbladder_radioButton">
                   <label for="extremelyLow-10to14">10-14 mm</label>  
                   <input id="extremelyLow-15orMore" type="radio" name="extremelyLow-Size" onclick="gallbladder_check(this.value, this.name)" value="extremelyLow-15orMore" class="gallbladder_radioButton">
@@ -133,11 +133,37 @@
                 <br>
               </div>
               
+              <div id="gallbladderLowSizeDiv" class="divContainer gallbladderContainer" style="display:none">
+                <span>Size</span>
+                <li>
+                  <input id="low-lessThan6" type="radio" name="low-Size" onclick="gallbladder_check(this.value, this.name)" value="low-lessThan6" class="gallbladder_radioButton">
+                  <label for="low-lessThan6"><= 6 mm</label>
+                  <input id="low-7to9" type="radio" name="low-Size" onclick="gallbladder_check(this.value, this.name)" value="low-7to9" class="gallbladder_radioButton">
+                  <label for="low-7to9">7-9 mm</label>
+                  <input id="low-10to14" type="radio" name="low-Size" onclick="gallbladder_check(this.value, this.name)" value="low-10to14" class="gallbladder_radioButton">
+                  <label for="low-10to14">10-14 mm</label>
+                  <input id="low-15orMore" type="radio" name="low-Size" onclick="gallbladder_check(this.value, this.name)" value="low-15orMore" class="gallbladder_radioButton">
+                  <label for="low-15orMore">>= 15mm</label>  
+                </li>
+                <br>
+              </div>
+              
+              <div id="gallbladderIndeterminateSizeDiv" class="divContainer gallbladderContainer" style="display:none">
+                <span>Size</span>
+                <li>
+                  <input id="indeterminate-lessThan6" type="radio" name="indeterminate-Size" onclick="gallbladder_check(this.value, this.name)" value="indeterminate-lessThan6" class="gallbladder_radioButton">
+                  <label for="indeterminate-lessThan6"><= 6 mm</label>
+                  <input id="indeterminate-7orMore" type="radio" name="indeterminate-Size" onclick="gallbladder_check(this.value, this.name)" value="indeterminate-7orMore" class="gallbladder_radioButton">
+                  <label for="indeterminate-7orMore">>= 7mm</label>  
+                </li>
+                <br>
+              </div>
+              
               <button id="gallbladder_clearButton" class="btn btn-outline-secondary btn-sm" onclick="gallbladder_clearInputs()">Clear</button>
               <br><br>
               <input type="text" value="" id="gallbladder_answer" class="hidden" readonly="readonly">
               <br><br>
-              <button id="gallbladder_copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="gallbladder_hideTooltip()" onclick="gallbladder_copyText()" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="manual" data-bs-title="Text copied!">Copy text</button>
+              <button id="gallbladder_copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="gallbladder_hideTooltip()" onclick="copyText('gallbladder_answer', 'gallbladder_copyTextId')" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="manual" data-bs-title="Text copied!">Copy text</button>
               <p id="debug"></p>
             </ul>
           </div>
