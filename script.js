@@ -72,6 +72,8 @@ function gallbladder_clearInputs() {
 
   showCopyTextButton("gallbladder_answer", "gallbladder_copyTextId", false);
   showElement("gallbladderExtremelyLowSizeDiv", false);
+  showElement("gallbladderLowSizeDiv", false);
+  showElement("gallbladderIndeterminateSizeDiv", false);
 }
   
 function gallbladder_hideTooltip() {
