@@ -1,10 +1,4 @@
-.liverMassCalc {
-    list-style-type: none;
-    margin: 25px 0 0 0;
-    padding: 0;
-}
-
-.gallbladderCalc {
+.liverMassCalc, .gallbladderCalc, .liRadsCalc {
     list-style-type: none;
     margin: 25px 0 0 0;
     padding: 0;
@@ -25,7 +19,7 @@
     /* CSS3 */
 }
 
-input[type="radio"] {
+input[type="radio"], input[type="checkbox"] {
     display: none;
 }      
 
@@ -74,8 +68,8 @@ label:hover {
 
 .visible {
     display: block;
-
 }
+
 
 * {
     font-family: Arial;
