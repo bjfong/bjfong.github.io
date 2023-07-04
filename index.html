@@ -128,7 +128,7 @@
                   <input id="extremelyLow-10to14" type="radio" name="extremelyLow-Size" onclick="gallbladder_check(this.value, this.name)" value="extremelyLow-10to14" class="gallbladder_radioButton">
                   <label for="extremelyLow-10to14">10-14 mm</label>  
                   <input id="extremelyLow-15orMore" type="radio" name="extremelyLow-Size" onclick="gallbladder_check(this.value, this.name)" value="extremelyLow-15orMore" class="gallbladder_radioButton">
-                  <label for="extremelyLow-15orMore">≥ 15mm</label>  
+                  <label for="extremelyLow-15orMore">>= 15mm</label>  
                 </li>
                 <br>
               </div>
@@ -137,13 +137,13 @@
                 <span>Size</span>
                 <li>
                   <input id="low-lessThan6" type="radio" name="low-Size" onclick="gallbladder_check(this.value, this.name)" value="low-lessThan6" class="gallbladder_radioButton">
-                  <label for="low-lessThan6">≤ 6 mm</label>
+                  <label for="low-lessThan6"><= 6 mm</label>
                   <input id="low-7to9" type="radio" name="low-Size" onclick="gallbladder_check(this.value, this.name)" value="low-7to9" class="gallbladder_radioButton">
                   <label for="low-7to9">7-9 mm</label>
                   <input id="low-10to14" type="radio" name="low-Size" onclick="gallbladder_check(this.value, this.name)" value="low-10to14" class="gallbladder_radioButton">
                   <label for="low-10to14">10-14 mm</label>
                   <input id="low-15orMore" type="radio" name="low-Size" onclick="gallbladder_check(this.value, this.name)" value="low-15orMore" class="gallbladder_radioButton">
-                  <label for="low-15orMore">≥ 15mm</label>  
+                  <label for="low-15orMore">>= 15mm</label>  
                 </li>
                 <br>
               </div>
@@ -152,9 +152,9 @@
                 <span>Size</span>
                 <li>
                   <input id="indeterminate-lessThan6" type="radio" name="indeterminate-Size" onclick="gallbladder_check(this.value, this.name)" value="indeterminate-lessThan6" class="gallbladder_radioButton">
-                  <label for="indeterminate-lessThan6">≤ 6 mm</label>
+                  <label for="indeterminate-lessThan6"><= 6 mm</label>
                   <input id="indeterminate-7orMore" type="radio" name="indeterminate-Size" onclick="gallbladder_check(this.value, this.name)" value="indeterminate-7orMore" class="gallbladder_radioButton">
-                  <label for="indeterminate-7orMore">≥ 7mm</label>  
+                  <label for="indeterminate-7orMore">>= 7mm</label>  
                 </li>
                 <br>
               </div>
@@ -164,7 +164,7 @@
               <input type="text" value="" id="gallbladder_answer" class="hidden" readonly="readonly">
               <br><br>
               <button id="gallbladder_copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="gallbladder_hideTooltip()" onclick="copyText('gallbladder_answer', 'gallbladder_copyTextId')" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="manual" data-bs-title="Text copied!">Copy text</button>
-              <p id="debug"></p>
+              <!--<p id="debug"></p>-->
             </ul>
           </div>
         </div>
@@ -172,12 +172,84 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingThree">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Accordion Item #3
+            Liver Imaging - RADS
           </button>
         </h2>
         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            <ul class="liRadsCalc">
+              <div id="liRadsArterialPhaseDiv" class="divContainer liRadsContainer">
+                <span>Arterial Phase Enhancement</span>
+                <li>
+                  <input id="liRadsArterialPhase-hypo" type="radio" name="liRadsArterialPhase" onclick="liRads_check(this.value, this.name)" value="hypo" class="liRads_radioButton">
+                  <label for="liRadsArterialPhase-hypo">Hypo- or iso-enhancement</label>
+                  <input id="liRadsArterialPhase-nonRim" type="radio" name="liRadsArterialPhase" onclick="liRads_check(this.value, this.name)" value="nonRim" class="liRads_radioButton">
+                  <label for="liRadsArterialPhase-nonRim">Non-rim enhancement</label>
+                </li>
+                <br>
+              </div>
+              
+             <div id="liRadsHypoSizeDiv" class="divContainer liRadsContainer" style="display:none">
+                <span>Size</span>
+                <li>
+                  <input id="liRadsHypoSize-lessThan20" type="radio" name="liRadsHypoSize" onclick="liRads_check(this.value, this.name)" value="lessThan20" class="liRads_radioButton">
+                  <label for="liRadsHypoSize-lessThan20"><20 mm</label>
+                  <input id="liRadsHypoSize-20orMore" type="radio" name="liRadsHypoSize" onclick="liRads_check(this.value, this.name)" value="20orMore" class="liRads_radioButton">
+                  <label for="liRadsHypoSize-20orMore">>=20 mm</label>
+                </li>
+                <br>
+              </div>
+              
+             <div id="liRadsNonRimSizeDiv" class="divContainer liRadsContainer" style="display:none">
+                <span>Size</span>
+                <li>
+                  <input id="liRadsNonRimSize-lessThan10" type="radio" name="liRadsNonRimSize" onclick="liRads_check(this.value, this.name)" value="lessThan10" class="liRads_radioButton">
+                  <label for="liRadsNonRimSize-lessThan10"><10 mm</label>
+                  <input id="liRadsNonRimSize-10to19" type="radio" name="liRadsNonRimSize" onclick="liRads_check(this.value, this.name)" value="10to19" class="liRads_radioButton">
+                  <label for="liRadsNonRimSize-10to19">10-19 mm</label>
+                  <input id="liRadsNonRimSize-20orMore" type="radio" name="liRadsNonRimSize" onclick="liRads_check(this.value, this.name)" value="20orMore" class="liRads_radioButton">
+                  <label for="liRadsNonRimSize-20orMore">>=20 mm</label>
+                </li>
+                <br>
+              </div>
+              
+             <div id="liRadsHypoCharacteristicsDiv" class="divContainer liRadsContainer" style="display:none">
+                <span>Characteristics (multi-select)</span>
+                <li>
+                  <input id="liRadsHypoCharacteristics-enhancingCapsule" type="checkbox" name="liRadsHypoCharacteristics" onclick="liRads_check(this.value, this.name)" value="enhancingCapsule" class="liRads_radioButton hypoCharacteristics characteristics">
+                  <label for="liRadsHypoCharacteristics-enhancingCapsule">Enhancing capsule</label>
+                  <input id="liRadsHypoCharacteristics-nonPeripheral" type="checkbox" name="liRadsHypoCharacteristics" onclick="liRads_check(this.value, this.name)" value="nonPeripheral" class="liRads_radioButton hypoCharacteristics characteristics">
+                  <label for="liRadsHypoCharacteristics-nonPeripheral">Non-peripheral washout</label>
+                  <input id="liRadsHypoCharacteristics-thresholdGrowth" type="checkbox" name="liRadsHypoCharacteristics" onclick="liRads_check(this.value, this.name)" value="thresholdGrowth" class="liRads_radioButton hypoCharacteristics characteristics">
+                  <label for="liRadsHypoCharacteristics-thresholdGrowth">Threshold growth</label>
+                  <input id="liRadsHypoCharacteristics-none" type="checkbox" name="liRadsHypoCharacteristics" onclick="liRads_check(this.value, this.name)" value="none" class="liRads_radioButton hypoCharacteristics characteristics">
+                  <label for="liRadsHypoCharacteristics-none">None of these</label>
+                </li>
+                <br>
+              </div>
+              
+             <div id="liRadsNonRimCharacteristicsDiv" class="divContainer liRadsContainer" style="display:none">
+                <span>Characteristics Non-Rim (multi-select)</span>
+                <li>
+                  <input id="liRadsNonRimCharacteristics-enhancingCapsule" type="checkbox" name="liRadsNonRimCharacteristics" onclick="liRads_check(this.value, this.name)" value="enhancingCapsule" class="liRads_radioButton nonRimCharacteristics characteristics">
+                  <label for="liRadsNonRimCharacteristics-enhancingCapsule">Enhancing capsule</label>
+                  <input id="liRadsNonRimCharacteristics-nonPeripheral" type="checkbox" name="liRadsNonRimCharacteristics" onclick="liRads_check(this.value, this.name)" value="nonPeripheral" class="liRads_radioButton nonRimCharacteristics characteristics">
+                  <label for="liRadsNonRimCharacteristics-nonPeripheral">Non-peripheral washout</label>
+                  <input id="liRadsNonRimCharacteristics-thresholdGrowth" type="checkbox" name="liRadsNonRimCharacteristics" onclick="liRads_check(this.value, this.name)" value="thresholdGrowth" class="liRads_radioButton nonRimCharacteristics characteristics">
+                  <label for="liRadsNonRimCharacteristics-thresholdGrowth">Threshold growth</label>
+                  <input id="liRadsNonRimCharacteristics-none" type="checkbox" name="liRadsNonRimCharacteristics" onclick="liRads_check(this.value, this.name)" value="none" class="liRads_radioButton nonRimCharacteristics characteristics">
+                  <label for="liRadsNonRimCharacteristics-none">None of these</label>
+                </li>
+                <br>
+              </div>
+              
+              <button id="liRads_clearButton" class="btn btn-outline-secondary btn-sm" onclick="liRads_clearInputs()">Clear</button>
+              <br><br>
+              <input type="text" value="" id="liRads_answer" class="hidden" readonly="readonly">
+              <br><br>
+              <button id="liRads_copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="liRads_hideTooltip()" onclick="copyText('liRads_answer', 'liRads_copyTextId')" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="manual" data-bs-title="Text copied!">Copy text</button>
+              <p id="debug"></p>
+            </ul>
           </div>
         </div>
       </div>
