@@ -138,8 +138,6 @@ function liRads_check(val, name) {
     result = liRads_getAllVisibleInputs('liRadsContainer', 'liRads_radioButton');  
   }
   
-  <!--debug(result);-->
-  
   var textToDisplay = liRads_getText(result);
   document.getElementById("liRads_answer").value = textToDisplay;
 
