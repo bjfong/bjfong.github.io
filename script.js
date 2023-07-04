@@ -15,7 +15,6 @@ function liRads_getText(selection) {
     "nonRim_lessThan10_3": "LR4",
     
     "nonRim_10to19_0": "LR3",
-    "nonRim_10to19_1": "***",
     "nonRim_10to19_nonPeripheral": "LR5",
     "nonRim_10to19_thresholdGrowth": "LR5",
     "nonRim_10to19_enhancingCapsule": "LR4",
@@ -253,12 +252,6 @@ function gallbladder_clearInputs() {
   showElement("gallbladderExtremelyLowSizeDiv", false);
   showElement("gallbladderLowSizeDiv", false);
   showElement("gallbladderIndeterminateSizeDiv", false);
-}
-  
-function gallbladder_hideTooltip() {
-    const myTooltipEl = document.getElementById('gallbladder_copyTextId');
-    const tooltip = bootstrap.Tooltip.getOrCreateInstance(myTooltipEl);
-    tooltip.hide();
 }
 
 // ------------------

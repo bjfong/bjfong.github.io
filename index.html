@@ -26,7 +26,7 @@
                 <input id="liverMassSize-1to1point5" type="radio" name="liverMassSize" onclick="liverMass_check(this.value, this.name)" value="1to1point5" class="radioButton">
                 <label for="liverMassSize-1to1point5">1.0-1.5 cm</label>  
                 <input id="liverMassSize-greaterThan1point5" type="radio" name="liverMassSize" onclick="liverMass_check(this.value, this.name)" value="greaterThan1point5" class="radioButton">
-                <label for="liverMassSize-greaterThan1point5">>1.5 cm</label>  
+                <label for="liverMassSize-greaterThan1point5">> 1.5 cm</label>  
               </li>
               <br>
             </div>
@@ -163,7 +163,7 @@
               <br><br>
               <input type="text" value="" id="gallbladder_answer" class="hidden" readonly="readonly">
               <br><br>
-              <button id="gallbladder_copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="gallbladder_hideTooltip()" onclick="copyText('gallbladder_answer', 'gallbladder_copyTextId')" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="manual" data-bs-title="Text copied!">Copy text</button>
+              <button id="gallbladder_copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="hideTooltip('gallbladder_copyTextId')" onclick="copyText('gallbladder_answer', 'gallbladder_copyTextId')" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="manual" data-bs-title="Text copied!">Copy text</button>
               <!--<p id="debug"></p>-->
             </ul>
           </div>
@@ -247,7 +247,7 @@
               <br><br>
               <input type="text" value="" id="liRads_answer" class="hidden" readonly="readonly">
               <br><br>
-              <button id="liRads_copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="liRads_hideTooltip()" onclick="copyText('liRads_answer', 'liRads_copyTextId')" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="manual" data-bs-title="Text copied!">Copy text</button>
+              <button id="liRads_copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="hideTooltip('liRads_copyTextId')" onclick="copyText('liRads_answer', 'liRads_copyTextId')" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="manual" data-bs-title="Text copied!">Copy text</button>
               <p id="debug"></p>
             </ul>
           </div>
