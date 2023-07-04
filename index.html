@@ -22,7 +22,7 @@
               <span>Liver Mass Size</span>
               <li>
                 <input id="liverMassSize-lessThan1" type="radio" name="liverMassSize" onclick="liverMass_check(this.value, this.name)" value="lessThan1" class="radioButton">
-                <label for="liverMassSize-lessThan1"><1 cm</label>
+                <label for="liverMassSize-lessThan1">< 1 cm</label>
                 <input id="liverMassSize-1to1point5" type="radio" name="liverMassSize" onclick="liverMass_check(this.value, this.name)" value="1to1point5" class="radioButton">
                 <label for="liverMassSize-1to1point5">1.0-1.5 cm</label>  
                 <input id="liverMassSize-greaterThan1point5" type="radio" name="liverMassSize" onclick="liverMass_check(this.value, this.name)" value="greaterThan1point5" class="radioButton">
@@ -128,7 +128,7 @@
                   <input id="extremelyLow-10to14" type="radio" name="extremelyLow-Size" onclick="gallbladder_check(this.value, this.name)" value="extremelyLow-10to14" class="gallbladder_radioButton">
                   <label for="extremelyLow-10to14">10-14 mm</label>  
                   <input id="extremelyLow-15orMore" type="radio" name="extremelyLow-Size" onclick="gallbladder_check(this.value, this.name)" value="extremelyLow-15orMore" class="gallbladder_radioButton">
-                  <label for="extremelyLow-15orMore">>= 15mm</label>  
+                  <label for="extremelyLow-15orMore">≥ 15mm</label>  
                 </li>
                 <br>
               </div>
@@ -137,13 +137,13 @@
                 <span>Size</span>
                 <li>
                   <input id="low-lessThan6" type="radio" name="low-Size" onclick="gallbladder_check(this.value, this.name)" value="low-lessThan6" class="gallbladder_radioButton">
-                  <label for="low-lessThan6"><= 6 mm</label>
+                  <label for="low-lessThan6">≤ 6 mm</label>
                   <input id="low-7to9" type="radio" name="low-Size" onclick="gallbladder_check(this.value, this.name)" value="low-7to9" class="gallbladder_radioButton">
                   <label for="low-7to9">7-9 mm</label>
                   <input id="low-10to14" type="radio" name="low-Size" onclick="gallbladder_check(this.value, this.name)" value="low-10to14" class="gallbladder_radioButton">
                   <label for="low-10to14">10-14 mm</label>
                   <input id="low-15orMore" type="radio" name="low-Size" onclick="gallbladder_check(this.value, this.name)" value="low-15orMore" class="gallbladder_radioButton">
-                  <label for="low-15orMore">>= 15mm</label>  
+                  <label for="low-15orMore">≥ 15mm</label>  
                 </li>
                 <br>
               </div>
@@ -152,9 +152,9 @@
                 <span>Size</span>
                 <li>
                   <input id="indeterminate-lessThan6" type="radio" name="indeterminate-Size" onclick="gallbladder_check(this.value, this.name)" value="indeterminate-lessThan6" class="gallbladder_radioButton">
-                  <label for="indeterminate-lessThan6"><= 6 mm</label>
+                  <label for="indeterminate-lessThan6">≤ 6 mm</label>
                   <input id="indeterminate-7orMore" type="radio" name="indeterminate-Size" onclick="gallbladder_check(this.value, this.name)" value="indeterminate-7orMore" class="gallbladder_radioButton">
-                  <label for="indeterminate-7orMore">>= 7mm</label>  
+                  <label for="indeterminate-7orMore">≥ 7mm</label>  
                 </li>
                 <br>
               </div>
@@ -193,9 +193,9 @@
                 <span>Size</span>
                 <li>
                   <input id="liRadsHypoSize-lessThan20" type="radio" name="liRadsHypoSize" onclick="liRads_check(this.value, this.name)" value="lessThan20" class="liRads_radioButton">
-                  <label for="liRadsHypoSize-lessThan20"><20 mm</label>
+                  <label for="liRadsHypoSize-lessThan20">< 20 mm</label>
                   <input id="liRadsHypoSize-20orMore" type="radio" name="liRadsHypoSize" onclick="liRads_check(this.value, this.name)" value="20orMore" class="liRads_radioButton">
-                  <label for="liRadsHypoSize-20orMore">>=20 mm</label>
+                  <label for="liRadsHypoSize-20orMore">≥ 20 mm</label>
                 </li>
                 <br>
               </div>
@@ -204,11 +204,11 @@
                 <span>Size</span>
                 <li>
                   <input id="liRadsNonRimSize-lessThan10" type="radio" name="liRadsNonRimSize" onclick="liRads_check(this.value, this.name)" value="lessThan10" class="liRads_radioButton">
-                  <label for="liRadsNonRimSize-lessThan10"><10 mm</label>
+                  <label for="liRadsNonRimSize-lessThan10">< 10 mm</label>
                   <input id="liRadsNonRimSize-10to19" type="radio" name="liRadsNonRimSize" onclick="liRads_check(this.value, this.name)" value="10to19" class="liRads_radioButton">
                   <label for="liRadsNonRimSize-10to19">10-19 mm</label>
                   <input id="liRadsNonRimSize-20orMore" type="radio" name="liRadsNonRimSize" onclick="liRads_check(this.value, this.name)" value="20orMore" class="liRads_radioButton">
-                  <label for="liRadsNonRimSize-20orMore">>=20 mm</label>
+                  <label for="liRadsNonRimSize-20orMore">≥ 20 mm</label>
                 </li>
                 <br>
               </div>
@@ -229,7 +229,7 @@
               </div>
               
              <div id="liRadsNonRimCharacteristicsDiv" class="divContainer liRadsContainer" style="display:none">
-                <span>Characteristics Non-Rim (multi-select)</span>
+                <span>Characteristics (multi-select)</span>
                 <li>
                   <input id="liRadsNonRimCharacteristics-enhancingCapsule" type="checkbox" name="liRadsNonRimCharacteristics" onclick="liRads_check(this.value, this.name)" value="enhancingCapsule" class="liRads_radioButton nonRimCharacteristics characteristics">
                   <label for="liRadsNonRimCharacteristics-enhancingCapsule">Enhancing capsule</label>
