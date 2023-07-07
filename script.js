@@ -1,3 +1,106 @@
+
+function adrenal_calculate() {
+  var str_precontrast = document.getElementById("adrenalPrecontrast");
+  var str_postcontrast = document.getElementById("adrenalPostcontrast");
+  var str_delayed = document.getElementById("adrenalDelayed");
+  var div_absoluteWashout = document.getElementById("absoluteWashoutResult");
+  var input_absoluteWashout = document.getElementById("adrenalAbsoluteWashout");
+  var div_relativeWashout = document.getElementById("relativeWashoutResult");
+  var input_relativeWashout = document.getElementById("adrenalRelativeWashout");
+
+  var float_precontrast = parseFloat(str_precontrast.value);
+  var float_postcontrast = parseFloat(str_postcontrast.value);
+  var float_delayed = parseFloat(str_delayed.value);
+  
+  var absoluteWashoutResult = ((float_postcontrast - float_delayed)/(float_postcontrast - float_precontrast)*100).toFixed(2);
+  
+  if (isNaN(absoluteWashoutResult)) {
+    input_absoluteWashout.value = "";
+    div_absoluteWashout.classList.add("hidden");
+  }
+  else {
+    input_absoluteWashout.value = absoluteWashoutResult + "%";
+    
+    var exp_absoluteWashout = document.getElementById("absoluteWashoutExp");
+    
+    if (absoluteWashoutResult >= 60) {
+      var str_output="Absolute washout of 60% or higher is consistent with an adenoma.";
+      if (float_precontrast>43) {
+          str_output=str_output + "  However, it has been reported that a non-calcified, non-hemorrhagic lesion with precontrast attenuation of more than 43 HU is suspicious for malignancy regardless of washout characteristics.";
+      }
+      if (float_postcontrast >= 120 && float_precontrast < 70) {
+          str_output=str_output + "  Note that the marked enhancement raises the possibility of a pheochromocytoma.";
+      }
+      exp_absoluteWashout.innerHTML = str_output;
+    } else {
+      var str_output = "Absolute washout less than 60% is indeterminate.";
+      if (float_precontrast < 10) {
+          str_output = str_output + "  However, the low pre-contrast attenuation is suggestive of an adenoma.";
+      }
+      exp_absoluteWashout.innerHTML = str_output;
+    }
+
+    div_absoluteWashout.classList.remove("hidden");
+  }
+  
+  var relativeWashoutResult = ((float_postcontrast - float_delayed) / float_postcontrast * 100).toFixed(2);
+  
+  if (isNaN(relativeWashoutResult)) {
+    input_relativeWashout.value = "";
+    div_relativeWashout.classList.add("hidden");
+  }
+  else {
+    input_relativeWashout.value = relativeWashoutResult + "%";
+    
+    var exp_relativeWashout = document.getElementById("relativeWashoutExp");
+    if (relativeWashoutResult >= 40) {
+      var str_output = "Relative washout of 40% or higher is consistent with an adenoma.";
+      if (float_precontrast > 43) {
+          str_output = str_output + "  However, it has been reported that a non-calcified, non-hemorrhagic lesion with precontrast attenuation of more than 43 HU is suspicious for malignancy regardless of washout characteristics.";
+      }
+      if (float_postcontrast >= 120 && float_precontrast < 70) {
+          str_output = str_output + "  Note that the marked enhancement raises the possibility of a pheochromocytoma.";
+      }            
+      exp_relativeWashout.innerHTML = str_output;
+    } else {
+      var str_output = "Relative washout less than 40% is indeterminate.";
+      if (float_precontrast < 10) {
+          str_output = str_output + "  However, the low pre-contrast attenuation is suggestive of an adenoma.";
+      }
+      exp_relativeWashout.innerHTML = str_output;
+  }
+    
+    div_relativeWashout.classList.remove("hidden");
+  }
+}
+
+function adrenal_clear() {
+  var str_precontrast = document.getElementById("adrenalPrecontrast");
+  var str_postcontrast = document.getElementById("adrenalPostcontrast");
+  var str_delayed = document.getElementById("adrenalDelayed");
+  var div_absoluteWashout = document.getElementById("absoluteWashoutResult");
+  var input_absoluteWashout = document.getElementById("adrenalAbsoluteWashout");
+  var div_relativeWashout = document.getElementById("relativeWashoutResult");
+  var input_relativeWashout = document.getElementById("adrenalRelativeWashout");
+  
+  str_precontrast.value = "";
+  str_postcontrast.value = "";
+  str_delayed.value = "";
+  div_absoluteWashout.classList.add("hidden");
+  input_absoluteWashout.value = "";
+  div_relativeWashout.classList.add("hidden");
+  input_relativeWashout.value = "";
+}
+
+function showTooltip(tooltipId) {
+  const myTooltipEl = document.getElementById(`${tooltipId}`);
+  const tooltip = bootstrap.Tooltip.getOrCreateInstance(myTooltipEl);
+  tooltip.show();
+}
+
+
+// ------------------
+
 function liRads_getText(selection) {
   var textDict = {
     "hypo_lessThan20_0": "LR3",
@@ -369,7 +472,6 @@ function liverMass_check(val, name) {
   showCopyTextButton('answer', 'copyTextId', textToDisplay !== "");
 }
 
-// 'answer', 'copyTextId', 
 function showCopyTextButton(answerElementId, tooltipId, show) {
   var answerEl = document.getElementById(`${answerElementId}`);
   var copyTextEl = document.getElementById(`${tooltipId}`);
@@ -423,3 +525,6 @@ function hideTooltip(tooltipId) {
 function debug(text) {
     document.getElementById("debug").innerHTML = "DEBUG: " + text;
 }
+// adrenal
+// incidental adnexal mass on CT
+// pancreas and renal TBD
