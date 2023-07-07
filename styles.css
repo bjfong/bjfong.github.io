@@ -70,6 +70,7 @@ label:hover {
     display: block;
 }
 
+
 * {
     font-family: Arial;
 }
@@ -81,4 +82,9 @@ body {
 .accordion-button {
     color: #444;
     background-color: #eee;
+}
+
+#adrenalAbsoluteWashout, #adrenalRelativeWashout {
+  border: 0;
+  outline: 0;
 }
