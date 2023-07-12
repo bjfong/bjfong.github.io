@@ -1,3 +1,75 @@
+function adnexal_getText(selection) {
+  var textDict = {
+    "premenopausal_5orLess": "No further imaging",
+    "premenopausal_moreThan5_limited": "Ultrasound",
+    "premenopausal_moreThan5_notLimited": "Ultrasound follow-up in 6-12 months",
+    "premenopausal_moreThan5_fullyCharacterized": "If >= 7 cm, no further imaging. If < 7 cm, US follow-up in 6-12 months",
+    "postmenopausal_3orLess": "No further imaging",
+    "postmenopausal_moreThan3_limited": "Ultrasound",
+    "postmenopausal_moreThan3_notLimited": "Ultrasound follow-up in 6-12 months",
+    "postmenopausal_moreThan3_fullyCharacterized": "If <= 5 cm, no further imaging. If > 5 cm, US follow-up in 6-12 months",
+  }
+  return textDict[selection] === undefined ? "" : textDict[selection];
+}
+
+function adnexal_check(val, name) {
+  if (name === "adnexalMenopause" && val === "premenopausal") {
+    showElement("premenopausalSizeDiv", true);
+    
+    showElement("postmenopausalSizeDiv", false);
+    showElement("postmenopausalSizeAssessmentDiv", false);
+    showElement("premenopausalSizeAssessmentDiv", isSelected("premenopausalSize-moreThan5"));
+  }
+  
+  if (name === "adnexalMenopause" && val === "postmenopausal") {
+    showElement("postmenopausalSizeDiv", true);
+  
+    showElement("premenopausalSizeDiv", false);
+    showElement("premenopausalSizeAssessmentDiv", false);
+    showElement("postmenopausalSizeAssessmentDiv", isSelected("postmenopausalSize-moreThan3"));
+  }
+  
+  if (name === "premenopausalSize" && val === "5orLess") {
+    showElement("premenopausalSizeAssessmentDiv", false);
+  }
+  
+  if (name === "premenopausalSize" && val === "moreThan5") {
+    showElement("premenopausalSizeAssessmentDiv", true);
+  }
+  
+  if (name === "postmenopausalSize" && val === "moreThan3") {
+    showElement("postmenopausalSizeAssessmentDiv", true);
+  }
+  
+  if (name === "postmenopausalSize" && val === "3orLess") {
+    showElement("postmenopausalSizeAssessmentDiv", false);
+  }
+  
+  var result = getAllVisibleInputs('adnexalContainer', 'adnexal_radioButton');  
+  var textToDisplay = adnexal_getText(result);
+  
+  document.getElementById("adnexal_answer").value = textToDisplay;
+
+  showCopyTextButton("adnexal_answer", "adnexal_copyTextId", textToDisplay !== "");
+}
+
+function adnexal_clearInputs() {
+  var elements = document.getElementsByClassName("adnexal_radioButton");
+  var elementsArray = [...elements];
+  for (var i = 0; i < elementsArray.length; i++) {
+      elementsArray[i].checked = false;
+  }
+
+  document.getElementById("adnexal_answer").value = "";
+
+  showCopyTextButton("adnexal_answer", "adnexal_copyTextId", false);
+  showElement("premenopausalSizeDiv", false);
+  showElement("premenopausalSizeAssessmentDiv", false);
+  showElement("postmenopausalSizeDiv", false);
+  showElement("postmenopausalSizeAssessmentDiv", false);
+}
+
+// ------------------
 
 function adrenal_calculate() {
   var str_precontrast = document.getElementById("adrenalPrecontrast");
@@ -8,10 +80,13 @@ function adrenal_calculate() {
   var div_relativeWashout = document.getElementById("relativeWashoutResult");
   var input_relativeWashout = document.getElementById("adrenalRelativeWashout");
 
-  var float_precontrast = parseFloat(str_precontrast.value);
-  var float_postcontrast = parseFloat(str_postcontrast.value);
-  var float_delayed = parseFloat(str_delayed.value);
-  
+  var float_precontrast = str_precontrast.value;
+  var float_postcontrast = str_postcontrast.value;
+  var float_delayed = str_delayed.value;
+
+  // if none of the inputs are numbers (or are not populated) do not continue
+  if (!isNumber(float_precontrast) || !isNumber(float_postcontrast) || !isNumber(float_delayed)) return;
+ 
   var absoluteWashoutResult = ((float_postcontrast - float_delayed)/(float_postcontrast - float_precontrast)*100).toFixed(2);
   
   if (isNaN(absoluteWashoutResult)) {
@@ -74,6 +149,14 @@ function adrenal_calculate() {
   }
 }
 
+function isNumber(str) {
+    const number = Number(str);
+    const isInteger = Number.isInteger(number);
+    const isPositive = number > 0;
+
+    return isInteger && isPositive;
+}
+
 function adrenal_clear() {
   var str_precontrast = document.getElementById("adrenalPrecontrast");
   var str_postcontrast = document.getElementById("adrenalPostcontrast");
@@ -97,9 +180,6 @@ function showTooltip(tooltipId) {
   const tooltip = bootstrap.Tooltip.getOrCreateInstance(myTooltipEl);
   tooltip.show();
 }
-
-
-// ------------------
 
 function liRads_getText(selection) {
   var textDict = {
@@ -396,7 +476,7 @@ function isSelected(elementId) {
     return document.getElementById(`${elementId}`).checked;
 }
 
-function liverMass_getAllVisibleInputs(containerClassName, radioButtonClassName) {
+function getAllVisibleInputs(containerClassName, radioButtonClassName) {
   var elements = document.getElementsByClassName(`${containerClassName}`);
   var elementsArray = [...elements];
   var visibleInputs = elementsArray.filter(e => e.style.display === "" || e.style.display === "block");
@@ -465,7 +545,7 @@ function liverMass_check(val, name) {
     showElement("riskLevelGreaterThan1point5Div", true);
   }
 
-  var result = liverMass_getAllVisibleInputs('liverMassContainer', 'radioButton');
+  var result = getAllVisibleInputs('liverMassContainer', 'radioButton');
   var textToDisplay = liverMass_getText(result);
   document.getElementById("answer").value = textToDisplay;
 

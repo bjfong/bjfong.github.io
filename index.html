@@ -252,7 +252,6 @@
           </div>
         </div>
       </div>
-      
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingTwo">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
@@ -261,34 +260,110 @@
         </h2>
         <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <div class="formBody">
-              Pre-contrast HU<br>
-              <input id="adrenalPrecontrast" type="text" name="precontrast" placeholder="Pre-contrast HU" onchange="adrenal_calculate()">
-              <br><br>
-              60-75 Second Post-contrast HU<br>
-              <input id="adrenalPostcontrast" type="text" name="postcontrast" placeholder="Post-contrast HU" onchange="adrenal_calculate()">
-              <br><br>
-              15 Minute Delayed HU<br>
-              <input id="adrenalDelayed" type="text" name="delayed" placeholder="Delayed HU" onchange="adrenal_calculate()">
-              <br><br>
-              <button id="adrenalCalculate" class="btn btn-outline-secondary btn-sm" onclick="adrenal_calculate()">Calculate</button>
-              <button id="adrenalClear" class="btn btn-outline-secondary btn-sm" onclick="adrenal_clear()">Clear</button>
+            Pre-contrast HU<br>
+            <input id="adrenalPrecontrast" type="text" name="precontrast" onchange="adrenal_calculate()">
+            <br><br>
+            60-75 Second Post-contrast HU<br>
+            <input id="adrenalPostcontrast" type="text" name="postcontrast" onchange="adrenal_calculate()">
+            <br><br>
+            15 Minute Delayed HU<br>
+            <input id="adrenalDelayed" type="text" name="delayed" onchange="adrenal_calculate()">
+            <br><br>
+            <button id="adrenalCalculate" class="btn btn-outline-secondary btn-sm" onclick="adrenal_calculate()">Calculate</button>
+            <button id="adrenalClear" class="btn btn-outline-secondary btn-sm" onclick="adrenal_clear()">Clear</button>
+            <br><br>
+            <div id="absoluteWashoutResult" class="hidden">
+              Absolute Washout<br>
+              <input id="adrenalAbsoluteWashout" type="text" name="adrenalAbsoluteWashout" readonly="readonly">
+              <div id="absoluteWashoutExp" class="alert alert-primary" role="alert"></div>
+              <br>
+            </div>
+            <div id="relativeWashoutResult" class="hidden">
+              Relative Washout<br>
+              <input id="adrenalRelativeWashout" type="text" name="adrenalRelativeWashout" readonly="readonly">
+              <div id="relativeWashoutExp" class="alert alert-primary" role="alert"></div>
               <br><br>
             </div>
+            <!--<p id="debug"></p>-->
           </div>
-          <div id="absoluteWashoutResult" class="hidden">
-            Absolute Washout<br>
-            <input id="adrenalAbsoluteWashout" type="text" name="adrenalAbsoluteWashout" readonly="readonly">
-            <div id="absoluteWashoutExp" class="alert alert-primary" role="alert"></div>
-            <br>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingFive">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            Incidental Adnexal Mass on CT or MR
+          </button>
+        </h2>
+        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <ul class="adnexalCalc">
+              <div id="adnexalMenopauseDiv" class="divContainer adnexalContainer">
+                <span>Menopause Status</span>
+                <li>
+                  <input id="adnexalMenopause-premenopausal" type="radio" name="adnexalMenopause" onclick="adnexal_check(this.value, this.name)" value="premenopausal" class="adnexal_radioButton">
+                  <label for="adnexalMenopause-premenopausal">Premenopausal or < 50 yo if status unknown</label>
+                  <input id="adnexalMenopause-postmenopausal" type="radio" name="adnexalMenopause" onclick="adnexal_check(this.value, this.name)" value="postmenopausal" class="adnexal_radioButton">
+                  <label for="adnexalMenopause-postmenopausal">Postmenopausal or >= 50 yo if status unknown</label>
+                </li>
+                <br>
+              </div>
+              
+              <div id="premenopausalSizeDiv" class="divContainer adnexalContainer" style="display:none">
+                <span>Size</span>
+                <li>
+                  <input id="premenopausalSize-5orLess" type="radio" name="premenopausalSize" onclick="adnexal_check(this.value, this.name)" value="5orLess" class="adnexal_radioButton">
+                  <label for="premenopausalSize-5orLess"><= 5 cm</label>
+                  <input id="premenopausalSize-moreThan5" type="radio" name="premenopausalSize" onclick="adnexal_check(this.value, this.name)" value="moreThan5" class="adnexal_radioButton">
+                  <label for="premenopausalSize-moreThan5">> 5 cm</label>
+                </li>
+                <br>
+              </div>
+              
+              <div id="premenopausalSizeAssessmentDiv" class="divContainer adnexalContainer" style="display:none">
+                <span>Assessment</span>
+                <li>
+                  <input id="premenopausalSizeAssessment-limited" type="radio" name="premenopausalSizeAssessment" onclick="adnexal_check(this.value, this.name)" value="limited" class="adnexal_radioButton">
+                  <label for="premenopausalSizeAssessment-limited">Limited</label>
+                  <input id="premenopausalSizeAssessment-notLimited" type="radio" name="premenopausalSizeAssessment" onclick="adnexal_check(this.value, this.name)" value="notLimited" class="adnexal_radioButton">
+                  <label for="premenopausalSizeAssessment-notLimited">Not limited but not fully characterized by MR</label>
+                  <input id="premenopausalSizeAssessment-fullyCharacterized" type="radio" name="premenopausalSizeAssessment" onclick="adnexal_check(this.value, this.name)" value="fullyCharacterized" class="adnexal_radioButton">
+                  <label for="premenopausalSizeAssessment-fullyCharacterized">Fully characterized by MR</label>
+                </li>
+                <br>
+              </div>
+              
+              <div id="postmenopausalSizeDiv" class="divContainer adnexalContainer" style="display:none">
+                <span>Size</span>
+                <li>
+                  <input id="postmenopausalSize-3orLess" type="radio" name="postmenopausalSize" onclick="adnexal_check(this.value, this.name)" value="3orLess" class="adnexal_radioButton">
+                  <label for="postmenopausalSize-3orLess"><= 3 cm</label>
+                  <input id="postmenopausalSize-moreThan3" type="radio" name="postmenopausalSize" onclick="adnexal_check(this.value, this.name)" value="moreThan3" class="adnexal_radioButton">
+                  <label for="postmenopausalSize-moreThan3">> 3 cm</label>
+                </li>
+                <br>
+              </div>
+              
+              <div id="postmenopausalSizeAssessmentDiv" class="divContainer adnexalContainer" style="display:none">
+                <span>Assessment</span>
+                <li>
+                  <input id="postmenopausalSizeAssessment-limited" type="radio" name="postmenopausalSizeAssessment" onclick="adnexal_check(this.value, this.name)" value="limited" class="adnexal_radioButton">
+                  <label for="postmenopausalSizeAssessment-limited">Limited</label>
+                  <input id="postmenopausalSizeAssessment-notLimited" type="radio" name="postmenopausalSizeAssessment" onclick="adnexal_check(this.value, this.name)" value="notLimited" class="adnexal_radioButton">
+                  <label for="postmenopausalSizeAssessment-notLimited">Not limited but not fully characterized by MR</label>
+                  <input id="postmenopausalSizeAssessment-fullyCharacterized" type="radio" name="postmenopausalSizeAssessment" onclick="adnexal_check(this.value, this.name)" value="fullyCharacterized" class="adnexal_radioButton">
+                  <label for="postmenopausalSizeAssessment-fullyCharacterized">Fully characterized by MR</label>
+                </li>
+                <br>
+              </div>
+              
+              <button id="adnexal_clearButton" class="btn btn-outline-secondary btn-sm" onclick="adnexal_clearInputs()">Clear</button>
+              <br><br>
+              <input type="text" value="" id="adnexal_answer" class="hidden" readonly="readonly">
+              <br><br>
+              <button id="adnexal_copyTextId" class="btn btn-outline-secondary btn-sm hidden" onmouseout="hideTooltip('adnexal_copyTextId')" onclick="copyText('adnexal_answer', 'adnexal_copyTextId')" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="manual" data-bs-title="Text copied!">Copy text</button>
+              <!-- <p id="debug"></p> -->
+            </ul>
           </div>
-          <div id="relativeWashoutResult" class="hidden">
-            Relative Washout<br>
-            <input id="adrenalRelativeWashout" type="text" name="adrenalRelativeWashout" readonly="readonly">
-            <div id="relativeWashoutExp" class="alert alert-primary" role="alert"></div>
-            <br><br>
-          </div>
-          <!--<p id="debug"></p>-->
         </div>
       </div>
     </div>
