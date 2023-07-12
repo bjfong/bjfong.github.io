@@ -3,11 +3,11 @@ function adnexal_getText(selection) {
     "premenopausal_5orLess": "No further imaging",
     "premenopausal_moreThan5_limited": "Ultrasound",
     "premenopausal_moreThan5_notLimited": "Ultrasound follow-up in 6-12 months",
-    "premenopausal_moreThan5_fullyCharacterized": "If >= 7 cm, no further imaging. If < 7 cm, US follow-up in 6-12 months",
+    "premenopausal_moreThan5_fullyCharacterized": "If ≥ 7 cm, no further imaging. If < 7 cm, US follow-up in 6-12 months",
     "postmenopausal_3orLess": "No further imaging",
     "postmenopausal_moreThan3_limited": "Ultrasound",
     "postmenopausal_moreThan3_notLimited": "Ultrasound follow-up in 6-12 months",
-    "postmenopausal_moreThan3_fullyCharacterized": "If <= 5 cm, no further imaging. If > 5 cm, US follow-up in 6-12 months",
+    "postmenopausal_moreThan3_fullyCharacterized": "If ≤ 5 cm, no further imaging. If > 5 cm, US follow-up in 6-12 months",
   }
   return textDict[selection] === undefined ? "" : textDict[selection];
 }
@@ -85,7 +85,11 @@ function adrenal_calculate() {
   var float_delayed = str_delayed.value;
 
   // if none of the inputs are numbers (or are not populated) do not continue
-  if (!isNumber(float_precontrast) || !isNumber(float_postcontrast) || !isNumber(float_delayed)) return;
+  if (!isNumber(float_precontrast) || !isNumber(float_postcontrast) || !isNumber(float_delayed)) {
+    div_absoluteWashout.classList.add("hidden");
+    div_relativeWashout.classList.add("hidden");
+    return;
+  }
  
   var absoluteWashoutResult = ((float_postcontrast - float_delayed)/(float_postcontrast - float_precontrast)*100).toFixed(2);
   
@@ -150,11 +154,12 @@ function adrenal_calculate() {
 }
 
 function isNumber(str) {
+    if (str === "") return false;
     const number = Number(str);
     const isInteger = Number.isInteger(number);
-    const isPositive = number > 0;
+    const isPositiveOrZero = number >= 0;
 
-    return isInteger && isPositive;
+    return isInteger && isPositiveOrZero;
 }
 
 function adrenal_clear() {
